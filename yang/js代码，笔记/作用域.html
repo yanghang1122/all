@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		
+		<script type="text/javascript">
+			// 通过var 定义的变量或者函数 在之前就可以访问到 值是undefined
+			
+			// function 函数在定义之也可以访问到 值就是函数定义(对象)
+			
+			/* 
+			a是undefined 因为函数声明提前 先在fn里找a fn里的a被声明提前了 所以是undefined
+			var a = 3;
+			function fn(){
+				var a;
+				console.log(a);
+				a = 4;
+			}
+			fn();
+			*/ 
+			 
+		fn();
+			function fn(){
+				console.log("a");
+			
+			}
+		
+			
+		</script>
+	</body>
+</html>

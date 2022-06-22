@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/swiper-bundle.min.css"/>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+				font-size: 0;
+			}
+			img{
+				width: 100%;
+			}
+			
+			.swiper-box{
+				width: 70vw;
+				margin: 0 auto;
+			}
+			
+			.swiper-pagination .swiper-pagination-bullet{
+				width: 1vw;
+				height: 2vw;
+				opacity: 1;
+				margin: 1vw;
+			}
+			.swiper-pagination .swiper-pagination-bullet:nth-child(1){
+				background-color: peachpuff;
+			}
+			.swiper-pagination .swiper-pagination-bullet:nth-child(2){
+				background-color: green;
+			}
+			.swiper-pagination .swiper-pagination-bullet:nth-child(3){
+				background-color: orange;
+			}
+			
+			.swiper-pagination-bullet-active{
+				box-shadow: 0 0 0 2px #ffffff, 0 0 0 3px #2c2c2c, 0 0 0 8px #dadada;
+			}
+			
+			
+			.swiper-slide img{
+			
+				    width: 104%;
+				    margin-left: -2%;
+				    transform: translateX(2%);
+				    transition: transform ease-out 1s;
+				
+}
+			
+			.swiper-slide-active img{
+				
+				    transform: translateX(0);
+			}
+			
+			.swiper-pagination-bullet{
+				font-size: 34px;
+				color: #DADADA;
+			}
+			
+			.swiper-pagination-bullet.swiper-pagination-bullet-active{
+				color: black
+			}
+			
+		</style>
+	</head>
+	<body>
+		
+		<div class="swiper-box">
+			<div class="swiper-container">
+			    <div class="swiper-wrapper">
+			        <div class="swiper-slide"><img src="../img/huawei-matebook-x-colors-1.jpg" ></div>
+			        <div class="swiper-slide"><img src="../img/huawei-matebook-x-colors-3.jpg" ></div>
+			        <div class="swiper-slide"><img src="../img/huawei-matebook-x-colors-4.jpg" ></div>
+			    </div>
+			    
+			</div>
+		</div>
+		
+		<div class="swiper-pag">
+			<div class="swiper-pagination">
+			
+				
+				
+			</div>
+		</div>
+		<div class="swiper-btn">
+			<div class="swiper-button-prev"></div><!--左箭头。如果放置在swiper-container外面，需要自定义样式。-->
+		    <div class="swiper-button-next"></div><!--右箭头。如果放置在swiper-container外面，需要自定义样式。-->
+		</div>
+		 
+		
+		
+		
+		
+		
+		<!-- <script src="../js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script> -->
+		<script src="../js/swiper-bundle.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var mySwiper = new Swiper('.swiper-container',{
+			  loop: true,
+			  slidesPerView : 1, 
+				effect : 'fade',
+			 navigation: {
+			      nextEl: '.swiper-button-next',
+			      prevEl: '.swiper-button-prev',
+			    },
+				pagination: {
+				    el: '.swiper-pagination',
+				  },
+			
+			})
+			
+			
+			$(".swiper-pagination-bullet").html("111");
+			
+		</script>
+	</body>
+</html>

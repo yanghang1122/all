@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="checkbox" name="qiu" value="足球" />足球
+		<input type="checkbox" name="qiu" value="篮球" />篮球
+		<br>
+		<input type="checkbox" id="all" value="全选" />全选
+
+		<script type="text/javascript">
+			
+			window.onload = function() {
+				var all = document.getElementById("all");
+				var qiu = document.getElementsByName("qiu");
+				all.onclick = function() {
+					if (all.checked == true) {
+						for (var i = 0; i < qiu.length; i++) {
+							qiu[i].checked = true;
+						}
+					} else if (all.checked == false) {
+						for (var i = 0; i < qiu.length; i++) {
+							qiu[i].checked = false;
+						}
+					}
+				}
+
+				for (var j = 0; j < qiu.length; j++) {
+					qiu[j].onclick = function() {
+						all.checked = true;
+						for (var k = 0; k < qiu.length; k++) {
+							if (qiu[k].checked == false) {
+								all.checked = false;
+							}
+						}
+					}
+				}
+
+
+
+
+			}
+		</script>
+	</body>
+</html>

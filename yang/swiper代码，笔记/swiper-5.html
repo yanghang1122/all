@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/swiper-bundle.min.css"/>
+		<style type="text/css">
+			
+			/* ie不好使 
+			谷歌点开图片会先变大,在变小
+			 */
+			
+			*{
+				margin: 0;
+				padding: 0;
+				font-size: 0;
+			}
+			img{
+				width: 100%;
+			}
+			.box{
+				padding: 10vw 0;
+				width: 90vw;
+				margin: 0 auto;
+			}
+			
+		
+			
+			
+			.swiper-slide{
+				transform: scale(.8);
+				transition: 1s;
+			}
+			.swiper-slide.swiper-slide-active {
+				transform: scale(1);
+				transition: 1s;
+			}
+			
+			.swiper-slide-next,.swiper-slide-prev{
+				transform: scale(.9);
+				transition: 1s;
+			}
+			
+			
+			
+			
+			.swiper-slide p {
+				opacity: 0;
+			}
+			
+			.swiper-slide.swiper-slide-active p{
+				opacity: 1;
+				transition: 1s;
+			}
+			
+		</style>
+	</head>
+	<body>
+		
+		<div class="swiper-container">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide">
+					<p style="font-size: 36px; text-align: center;">1111111</p>
+					<img src="../img/sec4-swiper2-v2.jpg">
+				</div>
+				<div class="swiper-slide">
+					<p style="font-size: 36px; text-align: center;">2222222</p>
+					<img src="../img/sec4-swiper2-v2.jpg">
+				</div>
+				<div class="swiper-slide">
+					<p style="font-size: 36px; text-align: center;">333333</p>
+					<img src="../img/sec4-swiper2-v2.jpg">
+				</div>
+				<div class="swiper-slide">
+					<p style="font-size: 36px; text-align: center;">444444</p>
+					<img src="../img/sec4-swiper2-v2.jpg">
+				</div>
+				<div class="swiper-slide">
+					<p style="font-size: 36px; text-align: center;">55555</p>
+					<img src="../img/sec4-swiper2-v2.jpg">
+				</div>
+				<div class="swiper-slide">
+					<p style="font-size: 36px; text-align: center;">666666</p>
+					<img src="../img/sec4-swiper2-v2.jpg">
+				</div>
+		
+			</div>
+			<div class="swiper-pagination"></div>
+			 <div class="swiper-button-prev"></div><!--左箭头。如果放置在swiper-container外面，需要自定义样式。-->
+			    <div class="swiper-button-next"></div>
+		</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		<script src="../js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/swiper-bundle.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			window.onload = function(){
+						 
+						
+						 
+						 
+						 
+						 var mySwiper = new Swiper('.swiper-container', {
+						 	//pc显示5个 834往下显示3个
+						 	  slidesPerView : 6, 
+						 	  //间距10
+						 	  spaceBetween : 10,
+						 	  //active那个居中
+						 	  centeredSlides:true,
+						 	  //循环
+						 	  loop: true,
+						 	  
+						 
+					
+						 	  
+						 	  
+						 })
+						 		
+			}
+							
+						
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		
+		<style type="text/css">
+		
+		*{
+			margin: 0;
+			padding: 0;
+		}
+			#box1{
+				width: 100px;
+				height: 100px;
+				background-color: red;
+				position: absolute;
+			}
+			#aaa{
+				height: 1000px;
+				width: 1px;
+				position: absolute;
+				top: 0;
+				left: 800px;
+				background-color: black;
+			}
+			
+			#btn1{
+				position: absolute;
+				top: 200px;
+			}
+			#btn2{
+				position: absolute;
+				top: 250px;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div id="box1">
+			
+		</div>
+		
+		<div id="aaa">
+			
+		</div>
+		
+		<button type="button" id="btn1">向右</button>
+		<button type="button" id="btn2">向左</button>
+		
+		<script type="text/javascript">
+			window.onload = function(){
+				var btn1 = document.querySelector("#btn1");
+				var box1 = document.querySelector("#box1");
+				var time;
+				
+				function aaa(a,b,c){
+					
+					a.onclick = function(){
+						clearInterval(time);
+						time = setInterval(function(){
+							box1.style.left = box1.offsetLeft + b +"px";
+							var box1left = parseInt(box1.style.left);
+							if(box1left == c){
+								clearInterval(time);
+							}
+						},100)
+					}
+					
+				}
+			
+				aaa(btn1,20,800);
+				aaa(btn2,-20,0);
+				
+				
+				
+				
+			}
+		</script>
+	</body>
+</html>

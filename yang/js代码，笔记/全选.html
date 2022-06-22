@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<input type="checkbox" value="足球" name="abc">足球
+		<input type="checkbox" value="篮球" name="abc" />篮球
+		<input type="checkbox" value="羽毛球" name="abc" />羽毛球
+		<input type="checkbox" value="乒乓球" name="abc" />乒乓球
+		<br>
+
+		<button type="button" id="all">全选</button>	
+		<button type="button" id="noall">全不选</button>	
+		<button type="button" id="fanxuan">反选</button>	
+			
+			<script>
+				window.onload = function(){
+					var all = document.getElementById("all");
+					all.onclick = function(){
+						var qiu = document.getElementsByName("abc");
+						for(var i=0; i<qiu.length; i++)
+							qiu[i].checked = true;  
+						
+						
+					}
+					var noall = document.getElementById("noall");
+					noall.onclick = function(){
+						var qiu = document.getElementsByName("abc");
+						for(var i=0; i<qiu.length; i++)
+							qiu[i].checked = false;  
+						
+						
+					}
+					var fanxuan = document.getElementById("fanxuan");
+					fanxuan.onclick = function(){
+						var qiu = document.getElementsByName("abc");
+						for(var i=0; i<qiu.length; i++)
+						if(qiu[i].checked == true){
+							qiu[i].checked = false;
+						}else if(qiu[i].checked == false){
+							qiu[i].checked = true;
+						}
+							
+						
+						
+					}
+					
+					
+					
+				}
+			</script>
+			
+			
+	</body>
+	
+	
+</html>

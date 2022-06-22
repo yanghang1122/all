@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			#img1{
+				width: 60vw;
+			}
+			
+		</style>
+	</head>
+	<body>
+		
+		<img id="img1" >
+		
+		
+		<script type="text/javascript">
+			
+			// window.onload = function(){
+			// 	var qqq = 0;
+			// 	var a = document.getElementById("aaa");
+			// 	//开启定时器
+			// 	var time = setInterval(function(){
+			// 		a.innerHTML = qqq++;
+					
+			// 		if(qqq == 10){
+			// 			//关闭定时器
+			// 			clearInterval(time);
+			// 		}
+			// 	},100)
+				
+			// }
+			
+			window.onload = function(){
+				var imgArr = ["../img/huawei-matebook-x-colors-1.jpg","../img/huawei-matebook-x-colors-3.jpg","../img/huawei-matebook-x-colors-4.jpg"];
+				var img1 = document.getElementById("img1");
+				
+				
+				var idd = 0;
+				
+				setInterval(function(){
+					idd++
+					if(idd == imgArr.length){
+						idd = 0;
+					}
+					
+					
+					img1.src = imgArr[idd];
+				},1000)
+				
+				
+			}
+			
+			
+		</script>
+	</body>
+</html>

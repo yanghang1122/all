@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		
+		<style type="text/css">
+			/*ie11 css hack*/
+			@media all and (-ms-high-contrast:none) {
+			    *::-ms-backdrop,
+			    .class名字 {
+			        里面的样式: 样式值;
+			    }
+			}
+
+
+			
+			/*ie10 css hack*/
+			@media screen and (-ms-high-contrast: active),
+			(-ms-high-contrast: none) {
+			    .class名字 {
+			        里面的样式: 样式值;
+			    }
+			}
+			
+			
+			
+			/*ie edge css hack*/
+			@supports (-ms-accelerator:true) {
+			    .selector {
+			        property: value;
+			    }
+			}
+			
+			
+			
+			/* ie */
+			_:-ms-input-placeholder,
+			:root .CLASS名字{
+			    样式: 样式值;
+			}
+
+			
+			
+			
+		</style>
+	</head>
+	<body>
+		
+		
+		
+	</body>
+</html>

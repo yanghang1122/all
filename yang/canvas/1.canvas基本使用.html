@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		
+		<style>
+			
+			canvas{
+				border: 1px solid #000;
+				
+			}
+		</style>
+	</head>
+	<body>
+		
+		<canvas id="can" width="500" height="500"></canvas>
+		
+		
+		<script>
+			let can  = document.getElementById("can");
+			
+			let ctx = can.getContext("2d");
+			
+			ctx.moveTo(100,100)
+			ctx.lineTo(200,200)
+			ctx.closePath();
+			
+			
+			
+		</script>
+	</body>
+</html>

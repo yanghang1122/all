@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			
+			
+				//let 特性 
+				//1. 不能重复声明
+				//2. 块级作用域 for if{}
+				//3. 不存在变量提升
+				//遍历练习用let
+				/*window.onload = function(){
+					let items = document.querySelectorAll(".item");
+					for(let i=0;i<items.length;i++){
+						items[i].onclick = function(){
+							//this.style.backgroundColor = "white";
+							items[i].style.backgroundColor = "white";
+						}
+					}	
+				}*/
+				
+				
+				
+				//const特性 
+				// 1. 必须附初始值_要不报错
+				// 2. 全大写 
+				// 3. 定义的之不能修改_要不报错
+				// 4. 也是块级作用域
+				// 5. 对数组和对象进行修改 不算修改 不会报错 因为地址值没有改变
+				/*const BTN = ["aaa","bbb"]
+				BTN.push("ccc");//不会报错
+				BTN = 100;//会报错*/
+				
+				
+				
+				
+				
+				
+				//解构赋值
+				/*let fun = {
+					name:"赵本山",
+					xiaopin:function(){
+						console.log("昨天 今天 明天");
+					}
+				}
+				let {xiaopin} = fun;
+				xiaopin();*/
+				
+				
+				
+				
+				
+				
+				//模板字符串``
+				/*1. 字符串拼接用${}
+				2. 可以换行
+				3. 用esc下面的反引号*/
+				/*let aa = `哈哈`;
+				let bb = `${aa}嘿
+				嘿`;
+				console.log(bb);*/
+				
+				
+				
+				
+				
+				
+				
+				//es6允许在大括号里面写入变量和函数 作为对象的属性和方法
+				/*let aaa = "aaa";
+				function bbb(){
+					console.log("bbb");
+				}
+				var ccc = {
+					//等同于aaa:aaa,
+					aaa,
+					bbb,
+					//等同于ddd:function(){}
+					ddd(){
+						console.log("ddd")
+					}
+				}
+				ccc.ddd();*/
+				
+				
+				
+				
+				
+				
+				
+				//箭头函数
+				/*
+				1. this是静态的 始终指向函数声明时所在作用域下的this的值
+				2. 不能作为构造函数进行实例化对象
+				3. 不能使用arguments_打印实参用的
+				4. 箭头函数简写 形参只有一个的时候 形参的小括号可以不写
+					let aaa = a =>{
+						return a+a;
+					}
+					console.log(aaa(1))
+					
+				5. 当函数体只有一条执行语句的时候 可以省略花括号 return也必须省略
+					此时语句的执行结果就是函数的返回值
+					let aaa = a => a+a;
+					console.log(aaa(1))
+				*/
+				/*let aaa = (a) => {
+					return a+a;
+				};
+				console.log(aaa(1))*/
+				
+				
+				
+				
+				//es6新增原始数据类型 symbol
+				// let s = Symbol("haha");
+				// let s1 = Symbol("haha")
+				// console.log(s == s1)
+				
+				
+				//尚硅谷晓飞老师的promise
+				/*let p = new Promise((resolve,reject)=>{
+					setTimeout(()=>{
+						resolve("用户数据")
+					},1000)
+				})
+				
+			let result = p.then(value=>{
+					console.log(value)
+				},reason=>{
+					console.warn(reason)
+				})
+				
+				console.log(result)*/
+				
+				
+				//set 集合 会自动去重
+				/*let s = new Set();
+				let s2 = new Set(["1","2","3","4","4"]);
+				//新增
+				s2.add("6")
+				//查看数量
+				console.log(s2.size)
+				//遍历
+				for(let v of s2){
+					console.log(v)
+				}
+				//删除
+				s2.delete("1")
+				//清空
+				s2.clear();
+				//判断有没有
+				console.log(s2.has("3"))
+				console.log(s2)*/
+				
+				
+				
+				
+				//数组去重
+				 /*let arr = [1,2,3,4,5,5,3,6];
+				 //使用扩展运算符
+				let arr1 = [...new Set(arr)];
+				 console.log(arr1)*/
+				 
+		</script>
+	</body>
+</html>

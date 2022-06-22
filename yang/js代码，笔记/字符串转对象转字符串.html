@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	
+	<script type="text/javascript">
+		
+		var obj = '{"name": "yang","age":18}';
+		
+		
+		
+		/*json里只能放
+		字符串
+		数字
+		布尔值
+		null
+		对象
+		数组*/
+		
+		// JSON 属性名必须加双引号
+		
+		//json分类
+		// 对象{}
+		// 数组[]
+		
+		//把json字符串 转换成js对象
+		var o = JSON.parse(obj)
+		//把js对象转换成 json字符串
+		var obj2 = JSON.stringify(o)
+
+		
+		
+		console.dir(obj2);
+	</script>
+</html>

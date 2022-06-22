@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/swiper-bundle.min.css" />
+		<style type="text/css">
+			img {
+				width: 100%;
+			}
+
+			* {
+				margin: 0;
+				padding: 0;
+				font-size: 0;
+			}
+			
+			.box{
+				position: relative;
+			}
+			
+			  .swiper-pagination-mob {
+			      display: flex !important;
+			      justify-content: space-between;
+			      bottom: -2vw;
+			      position: absolute;
+			      z-index: 9;
+			      left: 50%;
+			      width: 80%;
+			      margin: 0 auto;
+			      transform: translate(-50%);
+			  }
+			
+			   .swiper-pagination-mob div {
+			      width: 20%;
+			  }
+	
+			
+			   .swiper-pagination-mob div span {
+			      display: block;
+			      position: relative;
+			      cursor: pointer;
+			  }
+			
+			   .swiper-pagination-mob div span:after,
+			   .swiper-pagination-mob div span:before {
+			      content: '';
+			      display: block;
+			      position: absolute;
+			      top: 0;
+			      left: 0;
+			      width: 100%;
+			      height: 3px;
+			      background: #242424;
+			      opacity: 0.2;
+			  }
+			
+			   .swiper-pagination-mob div.swiper-active-switch span:before {
+			      display: block;
+			      opacity: 1;
+			      -webkit-animation: progress 6s linear forwards;
+			      animation: progress 6s linear forwards;
+				  background-color: #007AFF;
+			  }
+			  
+			 
+			  @keyframes progress {
+			  	0% {
+			  		width: 0;
+			  	}
+			  
+			  	100% {
+			  		width: 100%;
+			  	}
+			  }
+			  
+			  @-webkit-keyframes progress {
+			  	0% {
+			  		width: 0;
+			  	}
+			  
+			  	100% {
+			  		width: 100%;
+			  	}
+			  }
+		</style>
+	</head>
+	<body>
+
+		<div class="box">
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">
+						<img src="../img/banner.jpg" style="width: 100%;">
+					</div>
+					<div class="swiper-slide">
+						<img src="../img/banner.jpg" style="width: 100%;">
+					</div>
+					<div class="swiper-slide">
+						<img src="../img/banner.jpg" style="width: 100%;">
+					</div>
+				</div>
+			</div>
+			<div class="swiper-pagination-mob">
+				<div class="swiper-ga">
+					<span></span>
+				</div>
+				<div class="swiper-ga">
+					<span></span>
+				</div>
+				<div class="swiper-ga">
+					<span></span>
+				</div>
+			
+			</div>
+			
+
+
+		</div>
+		
+
+
+		<script src="../js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/swiper-bundle.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+		
+			// 第一次会提前一秒
+			
+			var mySwiper = new Swiper('.swiper-container', {
+				autoplay: {
+					delay: 5000,
+					disableOnInteraction: false,
+				}, 
+				loop: true,
+				speed: 1000,
+				pagination: {
+					el: '.swiper-pagination-mob',
+					clickable: true,
+					
+					// 分页器样式自定义
+					type: 'custom',
+					// 自定义特殊类型分页器
+					renderCustom: function(swiper, current, total) {
+						 $('.swiper-pagination-mob div').removeClass('swiper-active-switch').eq(current - 1).addClass('swiper-active-switch');
+					},
+				
+				},
+
+
+			})
+			
+			$(".swiper-pagination-mob div").on('click', function() {
+					mySwiper.slideToLoop($(this).index(), 1000);
+				});
+		</script>
+	</body>
+</html>

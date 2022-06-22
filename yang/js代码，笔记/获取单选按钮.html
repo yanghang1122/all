@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			.radio-btn{
+				width: 5vw;
+				height: 5vw;
+			}
+			.radio-btn i{
+				width: 1vw;
+				height: 1vw;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<input class="radio-btn" type="radio" name="asd" value="m5" checked="checked"/>
+		<input class="radio-btn" type="radio" name="asd" value="m7"/>
+		
+		
+		<script src="../js/jquery-3.6.0.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			var agreement = "m5"
+			$(".radio-btn").each(function(){
+			    $(this).on("click",function(){
+			        agreement = $(this).val()
+			        console.dir(agreement)
+					
+					// if($(this).val() == "m5"){
+					// 	alert("m5")
+					// }
+					// if($(this).val() == "m7"){
+					// 	alert("m7")
+					// }
+			    })
+			    
+			})
+			
+			
+		</script>
+		
+	</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div class="superscript" style="cursor: pointer;">
+			1
+		</div>
+		<img src="../img/banner.jpg" style="width: 100%;">
+		<img src="../img/banner.jpg" style="width: 100%;">
+		<img src="../img/banner.jpg" style="width: 100%;">
+		<img src="../img/banner.jpg" style="width: 100%;">
+		<img src="../img/banner.jpg" style="width: 100%;">
+
+		<ol class="component-footnotes">
+			<li class="footnote">数据来源：Lightricks。</li>
+		</ol>
+		<img src="../img/banner.jpg" style="width: 100%;">
+		<img src="../img/banner.jpg" style="width: 100%;">
+		<img src="../img/banner.jpg" style="width: 100%;">
+		<img src="../img/banner.jpg" style="width: 100%;">
+		<img src="../img/banner.jpg" style="width: 100%;">
+
+		<script src="../js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function() {
+				$('.superscript').each(function() {
+					$(this).on('click', function(e) {
+						var x = $(this).data("index") - 1;
+						$('html,body').animate({
+							scrollTop: $('.component-footnotes').offset().top - 500
+						}, 500);
+						$('.component-footnotes li').eq(x).addClass('current').siblings().removeClass('current');
+						e.preventDefault();
+					});
+				})
+			})
+		</script>
+	</body>
+</html>

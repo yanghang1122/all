@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/swiper-bundle.min.css" />
+		<style type="text/css">
+			img {
+				width: 100%;
+			}
+
+			* {
+				margin: 0;
+				padding: 0;
+				font-size: 0;
+			}
+			
+			.box{
+				position: relative;
+			}
+			
+			  .swiper-pagination-mob {
+			      display: flex !important;
+			      justify-content: space-between;
+			      bottom: -2vw;
+			      position: absolute;
+			      z-index: 9;
+			      left: 50%;
+			      width: 80%;
+			      margin: 0 auto;
+			      transform: translate(-50%);
+			  }
+			
+			   .swiper-pagination-mob span {
+			      width: 20%;
+				  border-radius: 0;
+				  height: 0;
+			  }
+	
+			
+			   .swiper-pagination-mob span {
+			      display: block;
+			      position: relative;
+			      cursor: pointer;
+			  }
+			
+			   .swiper-pagination-mob span:after,
+			   .swiper-pagination-mob span:before {
+			      content: '';
+			      display: block;
+			      position: absolute;
+			      top: 0;
+			      left: 0;
+			      width: 100%;
+			      height: 3px;
+			      background: #242424;
+			      opacity: 0.2;
+			  }
+			
+			.swiper-pagination-mob	.swiper-pagination-bullet-active:before {
+			      display: block;
+			      opacity: 1;
+			      -webkit-animation: progress 4s linear forwards;
+			      animation: progress 4s linear forwards;
+				  background-color: red;
+			  }
+			  
+			 
+			  @keyframes progress {
+			  	0% {
+			  		width: 0;
+			  	}
+			  
+			  	100% {
+			  		width: 100%;
+			  	}
+			  }
+			  
+			  @-webkit-keyframes progress {
+			  	0% {
+			  		width: 0;
+			  	}
+			  
+			  	100% {
+			  		width: 100%;
+			  	}
+			  }
+		</style>
+	</head>
+	<body>
+
+		<div class="box">
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">
+						<img src="../img/banner.jpg" style="width: 100%;">
+					</div>
+					<div class="swiper-slide">
+						<img src="../img/banner.jpg" style="width: 100%;">
+					</div>
+					<div class="swiper-slide">
+						<img src="../img/banner.jpg" style="width: 100%;">
+					</div>
+				</div>
+				<div class="swiper-pagination-mob">
+					<div class="swiper-ga">
+						<span></span>
+					</div>
+					<div class="swiper-ga">
+						<span></span>
+					</div>
+					<div class="swiper-ga">
+						<span></span>
+					</div>
+				</div>
+			</div>
+			
+			
+
+
+		</div>
+
+
+
+		<script src="../js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/swiper-bundle.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var mySwiper = new Swiper('.swiper-container', {
+				autoplay: {
+					delay: 4000,
+					disableOnInteraction: false,
+				}, 
+				loop: true,
+				// speed: 1000,
+				pagination: {
+					el: '.swiper-pagination-mob',
+					clickable: true,
+					type: 'bullets',
+				},
+
+
+			})
+			
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/swiper-bundle.min.css"/>
+		<style type="text/css">
+			*{
+				margin: 0 ;
+				padding: 0;
+			}
+			img{
+				width: 100%;
+				
+			}
+			.box{
+				width: 80vw;
+				margin: 0 auto;
+				background-color: #DCDCDC;
+				
+			}
+			.swiper-container{
+				width: 70vw;
+				margin: 0 auto;
+				padding: 2vw 0;
+			}
+		</style>
+	</head>
+	<body>
+		
+		
+		
+		<div class="box">
+			<div class="swiper-container">
+			    <div class="swiper-wrapper">
+			        <div class="swiper-slide">
+						<p style="font-size:24px; text-align: center;">1</p>
+						<img src="../Img/sound.png" >
+					</div>
+			        <div class="swiper-slide">	
+					<p style="font-size:24px; text-align: center;">2</p>
+						<img src="../img/sound.png" >
+					</div>
+			        <div class="swiper-slide">
+						<p style="font-size:24px; text-align: center;">3</p>
+						<img src="../img/sound.png" >
+					</div>
+					<div class="swiper-slide">
+						<p style="font-size:24px; text-align: center;">4</p>
+						<img src="../img/sound.png" >
+					</div>
+					<div class="swiper-slide">
+						<p style="font-size:24px; text-align: center;">5</p>
+						<img src="../img/sound.png" >
+					</div>
+					<div class="swiper-slide">
+						<p style="font-size:24px; text-align: center;">6</p>
+						<img src="../img/sound.png" >
+					</div>
+					
+					<div class="swiper-slide">
+						<p style="font-size:24px; text-align: center;">7</p>
+						<img src="../img/sound.png" >
+					</div>
+					<div class="swiper-slide">
+						<p style="font-size:24px; text-align: center;">8</p>
+						<img src="../img/sound.png" >
+					</div>
+					<div class="swiper-slide">
+						<p style="font-size:24px; text-align: center;">9</p>
+						<img src="../img/sound.png" >
+					</div>
+					<div class="swiper-slide">
+						<p style="font-size:24px; text-align: center;">10</p>
+						<img src="../img/sound.png" >
+					</div>
+					<div class="swiper-slide">
+						<p style="font-size:24px; text-align: center;">11</p>
+						<img src="../img/sound.png" >
+					</div>
+					<div class="swiper-slide">
+						<p style="font-size:24px; text-align: center;">12</p>
+						<img src="../img/sound.png" >
+					</div>
+					
+			    </div>
+			
+				<div class="swiper-scrollbar"></div>
+			</div>
+			
+			<div class="swiper-button-prev"></div><!--左箭头。如果放置在swiper-container外面，需要自定义样式。-->
+			    <div class="swiper-button-next"></div>
+			    
+		</div>
+		
+		
+		
+		<script src="../js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/swiper-bundle.min.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script type="text/javascript">
+			
+			var mySwiper = new Swiper('.swiper-container',{
+					//显示几个
+					slidesPerView : 5,
+					//边距100
+					spaceBetween : 100,
+					//滚动条
+					scrollbar: {
+					    el: '.swiper-scrollbar',
+						//允许拖动滚动条
+						draggable: true,
+						//释放滚动条时，会自动贴合
+						snapOnRelease: true,
+						
+					  },
+					  //swiper拖拽有惯性
+					   freeMode : true,
+					   //拖拽之后也能自动贴合
+					   freeModeSticky : true,
+					  //左右切换箭头
+					   navigation: {
+					         nextEl: '.swiper-button-next',
+					         prevEl: '.swiper-button-prev',
+					       },
+			})
+			
+			
+		</script>
+	</body>
+</html>

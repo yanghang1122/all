@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="../js/index.js"></script>
+	</head>
+	<body>
+		
+		
+		
+		<script>
+			let p = new Promise((resolve,reject)=>{
+				
+				reject("不ok")
+				// resolve("ok")
+				// throw "不ok"
+			})
+			
+			// console.log(p)
+			p.then((value)=>{
+				console.log(value)
+			},(reason)=>{
+				console.log(reason)
+			})
+			
+			
+		
+		</script>
+		
+		
+	</body>
+</html>

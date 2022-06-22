@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+
+		<script type="text/javascript">
+			
+
+			function fixSwiper4IE() {
+				Number.isNaN = Number.isNaN || function(t) {
+					return "number" == typeof t && isNaN(t)
+				}, !"a".repeat && (String.prototype.repeat = function(t) {
+					let e = String(this),
+						r = "";
+					for (let n = 1; n < t; n++) r += e;
+					return r
+				});
+				(function() {
+					if ("function" == typeof window.CustomEvent) return !1;
+
+					function t(t, e) {
+						e = e || {
+							bubbles: !1,
+							cancelable: !1,
+							detail: void 0
+						};
+						var n = document.createEvent("CustomEvent");
+						return n.initCustomEvent(t, e.bubbles, e.cancelable, e.detail), n
+					}
+					t.prototype = window.Event.prototype, window.CustomEvent = t
+				})();
+			}
+			
+			fixSwiper4IE();
+		</script>
+	</body>
+</html>

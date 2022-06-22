@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<button id="btn">点击发请求</button>
+		
+		<script>
+			
+			let btn = document.querySelector("#btn")
+			
+			btn.addEventListener('click',function(){
+				const p = new Promise((resolve,reject)=>{
+					// 1.创建对象
+					let xhr = new XMLHttpRequest();
+					// 2.初始化
+					xhr.open("get","https://api.apiopen.top/getJoke")
+					// 3.发送请求
+					xhr.send()
+					// 4.处理响应结果
+					xhr.onreadystatechange = function(){
+						// 状态4表示已发送请求，服务器已完成返回响应
+						if(xhr.readyState == 4){
+							//判断状态码是否为成功 成功则输出响应体 失败则输出状态码
+							if(xhr.status >= 200 && xhr.status < 300){
+								resolve(xhr.response)
+							}else{
+								reject(xhr.status);
+							}
+						}
+					}
+				})
+				
+				p.then((value)=>{
+					console.log(value)
+				},(reason)=>{
+					console.log(reason)
+				})
+				
+				
+				
+				
+				
+			})
+			
+			
+		</script>
+		
+		
+	</body>
+</html>

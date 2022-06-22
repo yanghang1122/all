@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			.kv-2 {
+				position: absolute;
+				width: 58.28vw;
+				top: 9vw;
+				left: -19vw;
+				animation: mymove;
+				
+				/* 动画名称  none指定有没有动画（可用于覆盖从级联的动画）*/
+				animation-name:mymove;
+				
+				/* 延迟两秒  无延迟 0*/
+				animation-delay:2s;
+				
+				/* 动画在奇数次（1、3、5...）正向播放，在偶数次（2、4、6...）反向播放。 / normal默认值。动画按正常播放。 */
+				animation-direction:alternate;
+				
+				/* 执行时间2s */
+				animation-duration:2s;
+				
+				/* 动完之后停在那 */
+				animation-fill-mode:forwards;
+				
+				/* 播放次数可写无限次 infinite */
+				animation-iteration-count: infinite;
+				
+				/* 暂停动画 paused / 执行动画 running */
+				animation-play-state:paused;
+				
+				/* 动画执行的速度曲线  linear动画从头到尾的速度是相同的。 ease动画以低速开始，然后加快，在结束前变慢。 */
+				animation-timing-function:ease-in-out;
+				
+			}
+			
+			@keyframes mymove {
+				0% {
+					top: 9vw;
+					left: -19vw;
+				}
+			
+				100% {
+					top: 14vw;
+					left: -25vw;
+				}
+			}
+			
+			
+		</style>
+	</head>
+	<body>
+	</body>
+</html>

@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="classic">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <meta name="author" content="shenzhilong@foxmail.com">
+        <meta name="keywords" content="DevCalc, Pixel Convert to Viewport Width, PX Convert to VW">
+        <title>&lt;DevCalc /&gt;</title>
+        <style>
+            html[data-theme=classic] {
+                --body-background: #38404e url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADsAAAA7CAQAAABvLDo4AAAAO0lEQVRYw+3NQREAMAzDsEAoq/FHlJHYrR/ZAJSezv/TyUZYLBaLxWKxWCwWi8VisVgsFovFYrFY7LsuzPN8Ex4nN9UAAAAASUVORK5CYII=) 0 0 repeat;
+                --body-color: #f1f3f4;
+                --button-active-background: #fff;
+                --button-active-color: #364f6b;
+                --button-background: #38404e;
+                --button-border-radius: 5px;
+                --button-hover-background: #2d333e;
+                --eg-background: transparent;
+                --eg-border: transparent;
+                --form-background: #f1f3f4;
+                --form-border-color: #fff;
+                --input-border-color: #fff;
+                --input-color: #364f6b;
+                --selection-background: #e91e63;
+                --selection-color: #f1f3f4;
+                --selection-shadow: none;
+                --suffix-color: #364f6b;
+                --svg-color: #f1f3f4;
+                --tips-background: #1b1f23;
+                --tips-border-color: transparent;
+                --tips-color: #f1f3f4;
+                --animation-play-state: paused;
+                --current-fill-color: currentColor
+            }
+
+            html[data-theme=modern] {
+                --body-background: #040d21;
+                --body-color: #627597;
+                --button-active-background: #0c162d;
+                --button-active-color: #00cfc8;
+                --button-background: #0c162d;
+                --button-border-radius: 100vh;
+                --button-hover-background: #040d21;
+                --eg-background: #0c162d;
+                --eg-border: #202637;
+                --form-background: #0c162d;
+                --form-border-color: #202637;
+                --input-border-color: transparent;
+                --input-color: #f78166;
+                --selection-background: #00cfc8;
+                --selection-color: #040d21;
+                --selection-shadow: 0 0 20px #f78166;
+                --suffix-color: #627597;
+                --svg-color: #627597;
+                --tips-background: #0c162d;
+                --tips-border-color: #202637;
+                --tips-color: #00cfc8;
+                --animation-play-state: running;
+                --current-fill-color: #00cfc8
+            }
+
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+                font-family: Menlo,Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,serif;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                text-rendering: optimizeLegibility
+            }
+
+            body {
+                width: 100%;
+                height: 100vh;
+                font-size: 16px;
+                line-height: 1.6;
+                transition: all 50ms ease-in-out;
+                color: var(--body-color);
+                background: var(--body-background)
+            }
+
+            ::selection {
+                color: var(--selection-color);
+                background: var(--selection-background);
+                text-shadow: var(--selection-shadow)
+            }
+
+            form {
+                position: relative;
+                width: 100%
+            }
+
+            label {
+                display: block;
+                margin: 0 0 5px 28px;
+                font-size: 18px;
+                font-weight: 700;
+                line-height: 24px;
+                text-align: left
+            }
+
+            button,input {
+                font-size: 18px;
+                border: 2px solid var(--form-border-color);
+                border-radius: 5px;
+                background-color: var(--form-background)
+            }
+
+            input {
+                width: 72%;
+                padding: 6px 10px;
+                color: var(--input-color);
+                border-top-color: var(--input-border-color);
+                border-right-color: var(--input-border-color);
+                border-left-color: var(--input-border-color)
+            }
+
+            input:active,input:focus {
+                outline: 0
+            }
+
+            button {
+                width: calc(28% - 10px);
+                margin-left: 10px;
+                padding: 0;
+                cursor: pointer;
+                user-select: none;
+                color: var(--body-color);
+                border-top-width: 1px;
+                border-bottom-width: 1px;
+                border-radius: var(--button-border-radius);
+                background-color: var(--button-background)
+            }
+
+            button:active,button:focus {
+                outline: 0
+            }
+
+            button:hover {
+                background-color: var(--button-hover-background)
+            }
+
+            button.current {
+                font-weight: 700;
+                color: var(--button-active-color);
+                background-color: var(--button-active-background)
+            }
+
+            svg {
+                visibility: visible;
+                width: 24px;
+                height: 24px;
+                vertical-align: bottom;
+                fill: var(--svg-color)
+            }
+
+            .lock-switch svg,svg[data-name=copy] {
+                width: 20px;
+                height: 20px
+            }
+
+            p {
+                margin: 10px 0
+            }
+
+            #main {
+                position: relative;
+                overflow: hidden;
+                width: 100%;
+                height: 100vh
+            }
+
+            .global-nav {
+                position: fixed;
+                top: 0;
+                right: 0;
+                padding: 20px;
+                font-size: 0
+            }
+
+            .gn-button {
+                width: auto;
+                margin: 0;
+                padding: 8px 20px
+            }
+
+            .gn-button:not(:last-child) {
+                margin-right: 10px
+            }
+
+            .theme-switch {
+                position: relative;
+                display: inline-block;
+                cursor: pointer;
+                user-select: none;
+                vertical-align: top
+            }
+
+            .switch-track {
+                width: 24px;
+                height: 40px;
+                border: 2px solid #627597;
+                border-radius: 24px
+            }
+
+            .theme-classic,.theme-modern {
+                position: absolute;
+                right: 0;
+                left: 0;
+                width: 10px;
+                height: 10px;
+                margin: 0 auto;
+                transition: opacity .2s
+            }
+
+            .theme-modern {
+                top: 6px;
+                opacity: 0
+            }
+
+            .theme-classic {
+                bottom: 6px
+            }
+
+            .switch-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 10px;
+                height: 10px;
+                font-size: 16px
+            }
+
+            .switch-handle {
+                position: absolute;
+                top: 3px;
+                right: 0;
+                left: 0;
+                width: 16px;
+                height: 16px;
+                margin: 0 auto;
+                transition: transform .2s;
+                transform: translateY(0);
+                border-radius: 50%;
+                background-color: #627597
+            }
+
+            .section {
+                position: absolute;
+                top: calc(50% - 35px);
+                right: 0;
+                left: 0;
+                display: none;
+                width: 800px;
+                margin: 0 auto;
+                transform: translateY(-50%);
+                text-align: center
+            }
+
+            .section.current {
+                display: block
+            }
+
+            .section-headline {
+                font-size: 28px;
+                line-height: 1.25
+            }
+
+            .section-flex {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between
+            }
+
+            .flex-item {
+                position: relative;
+                width: calc(50% - 10px)
+            }
+
+            .section-content {
+                margin-top: 60px
+            }
+
+            .calc-content,.vw-content {
+                position: relative;
+                margin-top: 25px
+            }
+
+            .label-icon {
+                position: absolute;
+                top: 0;
+                left: 0
+            }
+
+            .lock-switch .lock-button {
+                position: absolute;
+                top: 0;
+                right: 0;
+                cursor: pointer
+            }
+
+            .lock-switch input {
+                width: calc(72% - 70px)
+            }
+
+            .lock {
+                display: none
+            }
+
+            .locked .lock {
+                display: block
+            }
+
+            .locked .unlock {
+                display: none
+            }
+
+            input.vw {
+                cursor: default;
+                text-align: right;
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0
+            }
+
+            input.suffix {
+                width: 70px;
+                cursor: pointer;
+                user-select: none;
+                text-align: center;
+                color: var(--suffix-color);
+                border-left-width: 0;
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0
+            }
+
+            input.result {
+                position: absolute;
+                top: 9999px
+            }
+
+            .button-wrapper {
+                width: 72%;
+                margin-bottom: 10px;
+                justify-content: flex-start
+            }
+
+            .button-wrapper button,.button-wrapper input {
+                width: 22%;
+                margin: 0
+            }
+
+            .calc-button+.calc-button {
+                margin-left: 10px
+            }
+
+            .calc-customize-wrapper {
+                display: flex;
+                width: 48%;
+                margin-left: 10px
+            }
+
+            .calc-customize-wrapper .calc-customize-field {
+                width: 50%;
+                margin-left: 5px;
+                padding: 0;
+                font-weight: 700;
+                text-align: center;
+                border-top-width: 1px;
+                border-bottom-width: 1px;
+                opacity: 0;
+                visibility: hidden;
+                transition: transform .3s,opacity .3s,visibility 0s .3s;
+                transform: translateX(-30%)
+            }
+
+            .calc-customize {
+                cursor: pointer
+            }
+
+            .calc-customize.current+.calc-customize-field {
+                opacity: 1;
+                visibility: inherit;
+                transform: translateX(0);
+                transition: transform .3s,opacity .3s,visibility 0s
+            }
+
+            .calc-customize.current svg {
+                fill: var(--current-fill-color)
+            }
+
+            .calc-customize svg {
+                fill: currentColor
+            }
+
+            .calc {
+                margin-top: 10px
+            }
+
+            #calc-result {
+                cursor: default
+            }
+
+            .eg {
+                margin-top: 40px;
+                padding: 0 10px;
+                text-align: left;
+                border: 2px solid var(--eg-border);
+                border-radius: 5px;
+                background-color: var(--eg-background)
+            }
+
+            .tips {
+                position: relative
+            }
+
+            .tips::before {
+                position: absolute;
+                z-index: 101;
+                top: -7px;
+                right: 50%;
+                bottom: auto;
+                display: none;
+                width: 0;
+                height: 0;
+                margin-right: -6px;
+                content: '';
+                pointer-events: none;
+                opacity: 0;
+                color: #1b1f23;
+                border: 6px solid transparent;
+                border-top-color: #1b1f23
+            }
+
+            .tips::after {
+                position: absolute;
+                z-index: 100;
+                right: 50%;
+                bottom: 100%;
+                display: none;
+                margin-bottom: 6px;
+                padding: 4px 8px;
+                font-size: 14px;
+                content: attr(aria-label);
+                transform: translateX(50%);
+                text-align: center;
+                white-space: pre;
+                text-decoration: none;
+                letter-spacing: normal;
+                text-transform: none;
+                word-wrap: break-word;
+                pointer-events: none;
+                opacity: 0;
+                color: var(--tips-color);
+                border: 2px solid var(--tips-border-color);
+                border-radius: 5px;
+                background-color: var(--tips-background);
+                text-shadow: none
+            }
+
+            .tips.active::after,.tips.active::before,.tips:active::after,.tips:active::before,.tips:focus::after,.tips:focus::before,.tips:hover::after,.tips:hover::before {
+                display: inline-block;
+                animation: tooltip-appear .1s ease-in forwards;
+                text-decoration: none
+            }
+
+            @keyframes tooltip-appear {
+                from {
+                    opacity: 0
+                }
+
+                to {
+                    opacity: 1
+                }
+            }
+
+            .ripple-button {
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                user-select: none;
+                overflow: hidden
+            }
+
+            .ripple-button:after {
+                position: absolute;
+                background-color: rgba(255,255,255,.12);
+                pointer-events: none;
+                content: '';
+                border-radius: 50%;
+                width: var(--ripple-size,100%);
+                height: var(--ripple-size,100%);
+                top: 0;
+                left: 0;
+                top: 0;
+                left: 0;
+                opacity: 0;
+                transform-origin: center center
+            }
+
+            .ripple-button.active:after {
+                animation: ripple-radius-in 225ms forwards,ripple-opacity-in 75ms forwards
+            }
+
+            @keyframes ripple-radius-in {
+                from {
+                    animation-timing-function: cubic-bezier(.4,0,.2,1);
+                    transform: translate(var(--ripple-start,0)) scale(1)
+                }
+
+                to {
+                    transform: translate(var(--ripple-end,0)) scale(var(--ripple-scale,1))
+                }
+            }
+
+            @keyframes ripple-opacity-in {
+                from {
+                    animation-timing-function: linear;
+                    opacity: 0
+                }
+
+                to {
+                    opacity: 1
+                }
+            }
+
+            .universe {
+                position: relative;
+                z-index: -1;
+                overflow: hidden;
+                height: 100vh;
+                pointer-events: none;
+                opacity: 0;
+                visibility: hidden
+            }
+
+            .stars-small {
+                width: 1px;
+                height: 1px;
+                animation: interstellar 150s linear infinite;
+                animation-play-state: var(--animation-play-state);
+                background: 0 0;
+                box-shadow: 98vw 179vh #fff,48vw 92vh #fff,34vw 179vh #fff,21vw 22vh #fff,49vw 170vh #fff,12vw 169vh #fff,88vw 47vh #fff,67vw 114vh #fff,96vw 198vh #fff,28vw 164vh #fff,98vw 168vh #fff,85vw 81vh #fff,3vw 187vh #fff,58vw 78vh #fff,13vw 23vh #fff,17vw 77vh #fff,39vw 88vh #fff,10vw 75vh #fff,90vw 67vh #fff,98vw 4vh #fff,87vw 3vh #fff,44vw 161vh #fff,99vw 152vh #fff,18vw 25vh #fff,71vw 59vh #fff,46vw 78vh #fff,82vw 173vh #fff,92vw 188vh #fff,13vw 20vh #fff,51vw 95vh #fff,9vw 120vh #fff,51vw 72vh #fff,18vw 174vh #fff,27vw 34vh #fff,72vw 163vh #fff,73vw 5vh #fff,40vw 30vh #fff,86vw 97vh #fff,9vw 37vh #fff,34vw 182vh #fff,87vw 89vh #fff,48vw 68vh #fff,91vw 135vh #fff,73vw 58vh #fff,7vw 151vh #fff,48vw 20vh #fff,49vw 116vh #fff,26vw 196vh #fff,34vw 38vh #fff,9vw 181vh #fff,23vw 77vh #fff,81vw 167vh #fff,96vw 89vh #fff,62vw 102vh #fff,34vw 98vh #fff,49vw 54vh #fff,54vw 51vh #fff,72vw 100vh #fff,5vw 100vh #fff,45vw 135vh #fff,65vw 118vh #fff,51vw 150vh #fff,42vw 49vh #fff,92vw 166vh #fff,79vw 139vh #fff,71vw 79vh #fff,29vw 127vh #fff,67vw 138vh #fff,96vw 6vh #fff,100vw 174vh #fff,87vw 5vh #fff,8vw 164vh #fff,67vw 57vh #fff,64vw 155vh #fff,96vw 167vh #fff,6vw 136vh #fff,51vw 171vh #fff,10vw 11vh #fff,62vw 9vh #fff,76vw 34vh #fff,87vw 174vh #fff,14vw 158vh #fff,48vw 91vh #fff,42vw 12vh #fff,48vw 55vh #fff,3vw 135vh #fff,90vw 127vh #fff,8vw 96vh #fff,27vw 98vh #fff,18vw 148vh #fff
+            }
+
+            .stars-small:after {
+                position: absolute;
+                top: 200vh;
+                width: 1px;
+                height: 1px;
+                content: ' ';
+                background: 0 0;
+                box-shadow: 98vw 179vh #fff,48vw 92vh #fff,34vw 179vh #fff,21vw 22vh #fff,49vw 170vh #fff,12vw 169vh #fff,88vw 47vh #fff,67vw 114vh #fff,96vw 198vh #fff,28vw 164vh #fff,98vw 168vh #fff,85vw 81vh #fff,3vw 187vh #fff,58vw 78vh #fff,13vw 23vh #fff,17vw 77vh #fff,39vw 88vh #fff,10vw 75vh #fff,90vw 67vh #fff,98vw 4vh #fff,87vw 3vh #fff,44vw 161vh #fff,99vw 152vh #fff,18vw 25vh #fff,71vw 59vh #fff,46vw 78vh #fff,82vw 173vh #fff,92vw 188vh #fff,13vw 20vh #fff,51vw 95vh #fff,9vw 120vh #fff,51vw 72vh #fff,18vw 174vh #fff,27vw 34vh #fff,72vw 163vh #fff,73vw 5vh #fff,40vw 30vh #fff,86vw 97vh #fff,9vw 37vh #fff,34vw 182vh #fff,87vw 89vh #fff,48vw 68vh #fff,91vw 135vh #fff,73vw 58vh #fff,7vw 151vh #fff,48vw 20vh #fff,49vw 116vh #fff,26vw 196vh #fff,34vw 38vh #fff,9vw 181vh #fff,23vw 77vh #fff,81vw 167vh #fff,96vw 89vh #fff,62vw 102vh #fff,34vw 98vh #fff,49vw 54vh #fff,54vw 51vh #fff,72vw 100vh #fff,5vw 100vh #fff,45vw 135vh #fff,65vw 118vh #fff,51vw 150vh #fff,42vw 49vh #fff,92vw 166vh #fff,79vw 139vh #fff,71vw 79vh #fff,29vw 127vh #fff,67vw 138vh #fff,96vw 6vh #fff,100vw 174vh #fff,87vw 5vh #fff,8vw 164vh #fff,67vw 57vh #fff,64vw 155vh #fff,96vw 167vh #fff,6vw 136vh #fff,51vw 171vh #fff,10vw 11vh #fff,62vw 9vh #fff,76vw 34vh #fff,87vw 174vh #fff,14vw 158vh #fff,48vw 91vh #fff,42vw 12vh #fff,48vw 55vh #fff,3vw 135vh #fff,90vw 127vh #fff,8vw 96vh #fff,27vw 98vh #fff,18vw 148vh #fff
+            }
+
+            .stars-medium {
+                width: 2px;
+                height: 2px;
+                animation: interstellar 300s linear infinite;
+                animation-play-state: var(--animation-play-state);
+                background: 0 0;
+                box-shadow: 24vw 168vh #fff,12vw 100vh #fff,33vw 96vh #fff,51vw 110vh #fff,58vw 113vh #fff,35vw 86vh #fff,97vw 167vh #fff,10vw 189vh #fff,50vw 196vh #fff,53vw 83vh #fff,16vw 13vh #fff,19vw 20vh #fff,70vw 115vh #fff,52vw 86vh #fff,67vw 84vh #fff,17vw 168vh #fff,68vw 110vh #fff,59vw 34vh #fff,29vw 184vh #fff,90vw 2vh #fff,69vw 82vh #fff,3vw 41vh #fff,38vw 137vh #fff,69vw 28vh #fff,45vw 50vh #fff,88vw 131vh #fff,66vw 65vh #fff,17vw 33vh #fff,35vw 144vh #fff,33vw 8vh #fff,7vw 91vh #fff,98vw 193vh #fff,94vw 157vh #fff,79vw 197vh #fff,98vw 73vh #fff,60vw 17vh #fff,3vw 105vh #fff,79vw 6vh #fff,37vw 164vh #fff,57vw 31vh #fff,29vw 54vh #fff,77vw 155vh #fff,70vw 78vh #fff,91vw 48vh #fff,66vw 145vh #fff,68vw 149vh #fff,91vw 28vh #fff,57vw 175vh #fff,99vw 94vh #fff,44vw 194vh #fff,15vw 126vh #fff,37vw 4vh #fff,50vw 88vh #fff,65vw 70vh #fff,52vw 32vh #fff,64vw 154vh #fff,75vw 144vh #fff,52vw 17vh #fff,23vw 25vh #fff,98vw 115vh #fff
+            }
+
+            .stars-medium:after {
+                position: absolute;
+                top: 200vh;
+                width: 2px;
+                height: 2px;
+                content: ' ';
+                background: 0 0;
+                box-shadow: 24vw 168vh #fff,12vw 100vh #fff,33vw 96vh #fff,51vw 110vh #fff,58vw 113vh #fff,35vw 86vh #fff,97vw 167vh #fff,10vw 189vh #fff,50vw 196vh #fff,53vw 83vh #fff,16vw 13vh #fff,19vw 20vh #fff,70vw 115vh #fff,52vw 86vh #fff,67vw 84vh #fff,17vw 168vh #fff,68vw 110vh #fff,59vw 34vh #fff,29vw 184vh #fff,90vw 2vh #fff,69vw 82vh #fff,3vw 41vh #fff,38vw 137vh #fff,69vw 28vh #fff,45vw 50vh #fff,88vw 131vh #fff,66vw 65vh #fff,17vw 33vh #fff,35vw 144vh #fff,33vw 8vh #fff,7vw 91vh #fff,98vw 193vh #fff,94vw 157vh #fff,79vw 197vh #fff,98vw 73vh #fff,60vw 17vh #fff,3vw 105vh #fff,79vw 6vh #fff,37vw 164vh #fff,57vw 31vh #fff,29vw 54vh #fff,77vw 155vh #fff,70vw 78vh #fff,91vw 48vh #fff,66vw 145vh #fff,68vw 149vh #fff,91vw 28vh #fff,57vw 175vh #fff,99vw 94vh #fff,44vw 194vh #fff,15vw 126vh #fff,37vw 4vh #fff,50vw 88vh #fff,65vw 70vh #fff,52vw 32vh #fff,64vw 154vh #fff,75vw 144vh #fff,52vw 17vh #fff,23vw 25vh #fff,98vw 115vh #fff
+            }
+
+            .stars-big {
+                width: 3px;
+                height: 3px;
+                animation: interstellar 450s linear infinite;
+                animation-play-state: var(--animation-play-state);
+                background: 0 0;
+                box-shadow: 66vw 104vh #fff,55vw 54vh #fff,82vw 56vh #fff,98vw 164vh #fff,21vw 173vh #fff,86vw 167vh #fff,84vw 186vh #fff,35vw 137vh #fff,40vw 122vh #fff,80vw 180vh #fff,93vw 95vh #fff,45vw 28vh #fff,97vw 71vh #fff,45vw 123vh #fff,6vw 152vh #fff,50vw 131vh #fff,100vw 124vh #fff,62vw 131vh #fff,4vw 140vh #fff,64vw 10vh #fff,41vw 105vh #fff,10vw 44vh #fff,5vw 97vh #fff,31vw 156vh #fff,62vw 170vh #fff,15vw 144vh #fff,52vw 48vh #fff,71vw 83vh #fff,67vw 58vh #fff,59vw 167vh #fff
+            }
+
+            .stars-big:after {
+                position: absolute;
+                top: 200vh;
+                width: 3px;
+                height: 3px;
+                content: ' ';
+                background: 0 0;
+                box-shadow: 66vw 104vh #fff,55vw 54vh #fff,82vw 56vh #fff,98vw 164vh #fff,21vw 173vh #fff,86vw 167vh #fff,84vw 186vh #fff,35vw 137vh #fff,40vw 122vh #fff,80vw 180vh #fff,93vw 95vh #fff,45vw 28vh #fff,97vw 71vh #fff,45vw 123vh #fff,6vw 152vh #fff,50vw 131vh #fff,100vw 124vh #fff,62vw 131vh #fff,4vw 140vh #fff,64vw 10vh #fff,41vw 105vh #fff,10vw 44vh #fff,5vw 97vh #fff,31vw 156vh #fff,62vw 170vh #fff,15vw 144vh #fff,52vw 48vh #fff,71vw 83vh #fff,67vw 58vh #fff,59vw 167vh #fff
+            }
+
+            @keyframes interstellar {
+                from {
+                    transform: translateY(0)
+                }
+
+                to {
+                    transform: translateY(-200vh)
+                }
+            }
+
+            @media (prefers-reduced-motion) {
+                .stars-big,.stars-medium,.stars-small {
+                    display: none;
+                    animation: none
+                }
+            }
+
+            html[data-theme=modern] .theme-modern {
+                opacity: 1
+            }
+
+            html[data-theme=modern] .theme-classic {
+                opacity: 0
+            }
+
+            html[data-theme=modern] .switch-handle {
+                transform: translateY(18px)
+            }
+
+            html[data-theme=modern] .universe {
+                overflow: inherit;
+                opacity: 1;
+                visibility: inherit
+            }
+
+            @media (min-width: 1921px) {
+                body {
+                    font-size:.833333vw
+                }
+
+                .section-content {
+                    margin-top: 3.125vw
+                }
+
+                .section-headline {
+                    margin: 0 0 2.083333vw;
+                    font-size: 1.458333vw
+                }
+
+                label {
+                    margin: 0 0 .260417vw 1.458333vw;
+                    font-size: .9375vw;
+                    line-height: 1.25vw
+                }
+
+                button,input {
+                    font-size: .9375vw;
+                    border-radius: .260417vw
+                }
+
+                input {
+                    padding: .3125vw .520833vw
+                }
+
+                button {
+                    width: calc(28% - .520833vw);
+                    margin-left: .520833vw
+                }
+
+                svg {
+                    width: 1.25vw;
+                    height: 1.25vw
+                }
+
+                .lock-switch svg,svg[data-name=copy] {
+                    width: 1.041667vw;
+                    height: 1.041667vw
+                }
+
+                p {
+                    margin: .520833vw 0
+                }
+
+                .switch-track {
+                    width: 1.25vw;
+                    height: 2.083333vw;
+                    border-radius: 1.25vw
+                }
+
+                .theme-classic,.theme-modern {
+                    width: .520833vw;
+                    height: .520833vw
+                }
+
+                .theme-modern {
+                    top: .3125vw
+                }
+
+                .theme-classic {
+                    bottom: .3125vw
+                }
+
+                .switch-icon {
+                    width: .520833vw;
+                    height: .520833vw;
+                    font-size: .833333vw
+                }
+
+                .switch-handle {
+                    top: .15625vw;
+                    width: .833333vw;
+                    height: .833333vw
+                }
+
+                html[data-theme=modern] .switch-handle {
+                    transform: translateY(.9375vw)
+                }
+
+                .global-nav {
+                    padding: 1.041667vw
+                }
+
+                .global-nav .gn-button {
+                    padding: .416667vw 1.041667vw
+                }
+
+                .global-nav .gn-button:not(:last-child) {
+                    margin-right: .520833vw
+                }
+
+                .section {
+                    top: calc(50% - 1.822917vw);
+                    width: 41.666667vw
+                }
+
+                .flex-item {
+                    width: calc(50% - .520833vw)
+                }
+
+                .calc-content,.vw-content {
+                    margin-top: 1.302083vw
+                }
+
+                .lock-switch input {
+                    width: calc(72% - 3.645833vw)
+                }
+
+                .lock-switch svg {
+                    width: 1.041667vw;
+                    height: 1.041667vw
+                }
+
+                input.suffix {
+                    width: 3.645833vw
+                }
+
+                .eg {
+                    margin-top: 2.083333vw
+                }
+
+                .calc {
+                    margin-top: .520833vw
+                }
+
+                .button-wrapper {
+                    margin-bottom: .520833vw
+                }
+
+                .tips::after {
+                    margin-bottom: .3125vw;
+                    padding: .3125vw .520833vw;
+                    font-size: .729167vw
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <main id="main" class="main">
+            <nav class="global-nav">
+                <button type="button" data-id="1" class="gn-button current">Breakpoint</button>
+                <button type="button" data-id="2" class="gn-button">Calculate</button>
+                <div id="theme-switch" class="theme-switch" role="switch" tabindex="-1">
+                    <div class="switch-track">
+                        <div class="theme-modern">
+                            <span class="switch-icon">😎</span>
+                        </div>
+                        <div class="theme-classic">
+                            <span class="switch-icon">🙂</span>
+                        </div>
+                    </div>
+                    <div class="switch-handle"></div>
+                </div>
+            </nav>
+            <section id="breakpoint" class="section current" data-id="1">
+                <h2 class="section-headline">&lt;Breakpoint /&gt;</h2>
+                <form class="section-content" autocomplete="off">
+                    <div class="section-px">
+                        <svg class="label-icon" data-name="device" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M4 6h18V4H4c-1.1 0-2 .9-2 2v11H0v3h14v-3H4V6zm19 2h-6c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h6c.55 0 1-.45 1-1V9c0-.55-.45-1-1-1zm-1 9h-4v-7h4v7z"/>
+                        </svg>
+                        <label>px</label>
+                        <div class="section-flex">
+                            <input id="px" type="text">
+                            <button id="reset-button" class="tips" type="button" aria-label="Press Esc to Reset">
+                                <svg data-name="reset" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none"/>
+                                    <path d="M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="section-vw">
+                        <div class="vw-content">
+                            <svg class="label-icon" data-name="laptop" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/>
+                            </svg>
+                            <label>1920</label>
+                            <div class="section-flex lock-switch locked">
+                                <input id="vw-1920" class="vw" type="text" readonly>
+                                <input class="suffix" type="text" value="vw" readonly>
+                                <input class="result" type="text" tabindex="-1">
+                                <button class="copy-button" type="button">
+                                    <svg data-name="copy" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M0 0h24v24H0z" fill="none"/>
+                                        <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                                    </svg>
+                                </button>
+                                <div class="lock-button lock tips" type="button" aria-label="Locked, Press Enter to Copy">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M0 0h24v24H0z" fill="none"/>
+                                        <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                                    </svg>
+                                </div>
+                                <div class="lock-button unlock tips" type="button" aria-label="Unlocked">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M0 0h24v24H0z" fill="none"/>
+                                        <path d="M12 17c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6-9h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6h1.9c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm0 12H6V10h12v10z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="section-flex vw-content">
+                            <div class="flex-item">
+                                <svg class="label-icon" data-name="mobile" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none"/>
+                                    <path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/>
+                                </svg>
+                                <label>360</label>
+                                <div class="section-flex lock-switch">
+                                    <input id="vw-360" class="vw" type="text" readonly>
+                                    <input class="suffix" type="text" value="vw" readonly>
+                                    <input class="result" type="text" tabindex="-1">
+                                    <button class="copy-button" type="button">
+                                        <svg data-name="copy" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                                        </svg>
+                                    </button>
+                                    <div class="lock-button lock tips" type="button" aria-label="Locked, Press Enter to Copy">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="lock-button unlock tips" type="button" aria-label="Unlocked">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M12 17c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6-9h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6h1.9c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm0 12H6V10h12v10z"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-item">
+                                <svg class="label-icon" data-name="image" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none"/>
+                                    <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+                                </svg>
+                                <label>720 (px/2)</label>
+                                <div class="section-flex lock-switch">
+                                    <input id="vw-720" class="vw" type="text" readonly>
+                                    <input class="suffix" type="text" value="vw" readonly>
+                                    <input class="result" type="text" tabindex="-1">
+                                    <button class="copy-button" type="button">
+                                        <svg data-name="copy" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                                        </svg>
+                                    </button>
+                                    <div class="lock-button lock tips" type="button" aria-label="Locked, Press Enter to Copy">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="lock-button unlock tips" type="button" aria-label="Unlocked">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M12 17c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6-9h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6h1.9c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm0 12H6V10h12v10z"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="section-flex vw-content">
+                            <div class="flex-item">
+                                <svg class="label-icon" data-name="mobile" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none"/>
+                                    <path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/>
+                                </svg>
+                                <label>375</label>
+                                <div class="section-flex lock-switch">
+                                    <input id="vw-375" class="vw" type="text" readonly>
+                                    <input class="suffix" type="text" value="vw" readonly>
+                                    <input class="result" type="text" tabindex="-1">
+                                    <button class="copy-button" type="button">
+                                        <svg data-name="copy" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                                        </svg>
+                                    </button>
+                                    <div class="lock-button lock tips" type="button" aria-label="Locked, Press Enter to Copy">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="lock-button unlock tips" type="button" aria-label="Unlocked">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M12 17c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6-9h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6h1.9c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm0 12H6V10h12v10z"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-item">
+                                <svg class="label-icon" data-name="image" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none"/>
+                                    <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+                                </svg>
+                                <label>750 (px/2)</label>
+                                <div class="section-flex lock-switch">
+                                    <input id="vw-750" class="vw" type="text" readonly>
+                                    <input class="suffix" type="text" value="vw" readonly>
+                                    <input class="result" type="text" tabindex="-1">
+                                    <button class="copy-button" type="button">
+                                        <svg data-name="copy" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                                        </svg>
+                                    </button>
+                                    <div class="lock-button lock tips" type="button" aria-label="Locked, Press Enter to Copy">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="lock-button unlock tips" type="button" aria-label="Unlocked">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M12 17c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6-9h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6h1.9c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm0 12H6V10h12v10z"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </section>
+            <section id="calculate" class="section" data-id="2">
+                <h2 class="section-headline">&lt;Calculate /&gt;</h2>
+                <form class="section-content" autocomplete="off">
+                    <div class="section-px">
+                        <div class="section-flex">
+                            <div class="flex-item">
+                                <div class="button-wrapper section-flex">
+                                    <button class="calc-button current" type="button">360</button>
+                                    <button class="calc-button" type="button">375</button>
+                                    <div class="calc-customize-wrapper">
+                                        <div class="calc-customize" id="calc-xs-customize">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+                                                <path d="M864.64 586.23c-31.78-43.41-31.78-102.4 0-145.81 60.52-82.67-0.25-196.38-98.72-196.38-4.65 0-9.4 0.25-14.21 0.78-4.49 0.49-8.96 0.73-13.4 0.73-48.45 0-93-28.54-112.88-73.63-21.64-49.08-67.29-73.63-112.93-73.63s-91.29 24.54-112.93 73.63c-19.88 45.1-64.42 73.63-112.88 73.63-4.44 0-8.91-0.24-13.4-0.73-4.82-0.52-9.55-0.78-14.21-0.78-98.46 0-159.23 113.72-98.72 196.38 31.78 43.41 31.78 102.4 0 145.81-60.52 82.67 0.25 196.38 98.72 196.38 4.65 0 9.4-0.25 14.21-0.78 4.49-0.49 8.96-0.73 13.4-0.73 48.45 0 93 28.54 112.88 73.63 21.64 49.08 67.29 73.63 112.93 73.63s91.29-24.54 112.93-73.63c19.88-45.1 64.42-73.63 112.88-73.63 4.44 0 8.91 0.24 13.4 0.73 4.82 0.52 9.55 0.78 14.21 0.78 98.46 0 159.23-113.72 98.72-196.38z m-74.98-16.57a183.136 183.136 0 0 0 26.56 52.01c20.76 28.36 10.75 55.58 5.48 65.97-5.29 10.43-13.11 19.19-22.6 25.34-9.88 6.39-21.05 9.63-33.19 9.63-2.53 0-5.12-0.14-7.72-0.43a183.5 183.5 0 0 0-19.88-1.08c-72.61 0-138.47 42.95-167.78 109.42-5.42 12.29-13.54 21.85-24.15 28.41-9.96 6.16-21.67 9.42-33.88 9.42s-23.93-3.26-33.88-9.42c-10.6-6.57-18.73-16.12-24.15-28.41-29.31-66.47-95.17-109.42-167.78-109.42-6.61 0-13.3 0.36-19.88 1.08-2.6 0.28-5.2 0.43-7.72 0.43-12.14 0-23.31-3.24-33.2-9.63-9.49-6.14-17.31-14.9-22.6-25.33-5.27-10.39-15.28-37.6 5.49-65.97a183.142 183.142 0 0 0 26.56-52.01c5.88-18.22 8.86-37.17 8.86-56.33 0-19.16-2.98-38.12-8.86-56.33A183.136 183.136 0 0 0 208.78 405c-20.76-28.36-10.75-55.58-5.48-65.97 5.29-10.43 13.11-19.19 22.6-25.34 9.88-6.39 21.05-9.63 33.19-9.63 2.53 0 5.12 0.14 7.72 0.43a183.5 183.5 0 0 0 19.88 1.08c72.61 0 138.47-42.95 167.78-109.42 5.42-12.29 13.54-21.85 24.15-28.41 9.96-6.16 21.67-9.42 33.88-9.42s23.93 3.26 33.88 9.42c10.61 6.57 18.73 16.12 24.15 28.41 29.31 66.47 95.17 109.42 167.78 109.42 6.61 0 13.3-0.36 19.88-1.08 2.6-0.28 5.2-0.43 7.72-0.43 12.14 0 23.31 3.24 33.2 9.63 9.49 6.14 17.31 14.9 22.6 25.33 5.27 10.39 15.28 37.6-5.49 65.97A183.142 183.142 0 0 0 789.66 457a183.135 183.135 0 0 0-8.86 56.33c0 19.16 2.98 38.11 8.86 56.33z"></path>
+                                                <path d="M512.5 365.54c-81.16 0-146.96 65.8-146.96 146.96s65.8 146.96 146.96 146.96 146.96-65.8 146.96-146.96-65.8-146.96-146.96-146.96z m0 233.92c-47.95 0-86.96-39.01-86.96-86.96s39.01-86.96 86.96-86.96 86.96 39.01 86.96 86.96-39.01 86.96-86.96 86.96z"></path>
+                                            </svg>
+                                        </div>
+                                        <input class="calc-customize-field" id="calc-xs-customize-field" type="text">
+                                    </div>
+                                </div>
+                                <div class="section-flex">
+                                    <input id="calc-xs" type="text" tabindex="1">
+                                    <button class="calc-reset-button" type="button">
+                                        <svg data-name="reset" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="flex-item">
+                                <div class="button-wrapper section-flex button-wrapper-lg">
+                                    <button class="calc-button-lg current" type="button">1920</button>
+                                    <div class="calc-customize-wrapper">
+                                        <div class="calc-customize" id="calc-lg-customize">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+                                                <path d="M864.64 586.23c-31.78-43.41-31.78-102.4 0-145.81 60.52-82.67-0.25-196.38-98.72-196.38-4.65 0-9.4 0.25-14.21 0.78-4.49 0.49-8.96 0.73-13.4 0.73-48.45 0-93-28.54-112.88-73.63-21.64-49.08-67.29-73.63-112.93-73.63s-91.29 24.54-112.93 73.63c-19.88 45.1-64.42 73.63-112.88 73.63-4.44 0-8.91-0.24-13.4-0.73-4.82-0.52-9.55-0.78-14.21-0.78-98.46 0-159.23 113.72-98.72 196.38 31.78 43.41 31.78 102.4 0 145.81-60.52 82.67 0.25 196.38 98.72 196.38 4.65 0 9.4-0.25 14.21-0.78 4.49-0.49 8.96-0.73 13.4-0.73 48.45 0 93 28.54 112.88 73.63 21.64 49.08 67.29 73.63 112.93 73.63s91.29-24.54 112.93-73.63c19.88-45.1 64.42-73.63 112.88-73.63 4.44 0 8.91 0.24 13.4 0.73 4.82 0.52 9.55 0.78 14.21 0.78 98.46 0 159.23-113.72 98.72-196.38z m-74.98-16.57a183.136 183.136 0 0 0 26.56 52.01c20.76 28.36 10.75 55.58 5.48 65.97-5.29 10.43-13.11 19.19-22.6 25.34-9.88 6.39-21.05 9.63-33.19 9.63-2.53 0-5.12-0.14-7.72-0.43a183.5 183.5 0 0 0-19.88-1.08c-72.61 0-138.47 42.95-167.78 109.42-5.42 12.29-13.54 21.85-24.15 28.41-9.96 6.16-21.67 9.42-33.88 9.42s-23.93-3.26-33.88-9.42c-10.6-6.57-18.73-16.12-24.15-28.41-29.31-66.47-95.17-109.42-167.78-109.42-6.61 0-13.3 0.36-19.88 1.08-2.6 0.28-5.2 0.43-7.72 0.43-12.14 0-23.31-3.24-33.2-9.63-9.49-6.14-17.31-14.9-22.6-25.33-5.27-10.39-15.28-37.6 5.49-65.97a183.142 183.142 0 0 0 26.56-52.01c5.88-18.22 8.86-37.17 8.86-56.33 0-19.16-2.98-38.12-8.86-56.33A183.136 183.136 0 0 0 208.78 405c-20.76-28.36-10.75-55.58-5.48-65.97 5.29-10.43 13.11-19.19 22.6-25.34 9.88-6.39 21.05-9.63 33.19-9.63 2.53 0 5.12 0.14 7.72 0.43a183.5 183.5 0 0 0 19.88 1.08c72.61 0 138.47-42.95 167.78-109.42 5.42-12.29 13.54-21.85 24.15-28.41 9.96-6.16 21.67-9.42 33.88-9.42s23.93 3.26 33.88 9.42c10.61 6.57 18.73 16.12 24.15 28.41 29.31 66.47 95.17 109.42 167.78 109.42 6.61 0 13.3-0.36 19.88-1.08 2.6-0.28 5.2-0.43 7.72-0.43 12.14 0 23.31 3.24 33.2 9.63 9.49 6.14 17.31 14.9 22.6 25.33 5.27 10.39 15.28 37.6-5.49 65.97A183.142 183.142 0 0 0 789.66 457a183.135 183.135 0 0 0-8.86 56.33c0 19.16 2.98 38.11 8.86 56.33z"></path>
+                                                <path d="M512.5 365.54c-81.16 0-146.96 65.8-146.96 146.96s65.8 146.96 146.96 146.96 146.96-65.8 146.96-146.96-65.8-146.96-146.96-146.96z m0 233.92c-47.95 0-86.96-39.01-86.96-86.96s39.01-86.96 86.96-86.96 86.96 39.01 86.96 86.96-39.01 86.96-86.96 86.96z"></path>
+                                            </svg>
+                                        </div>
+                                        <input class="calc-customize-field" id="calc-lg-customize-field" type="text">
+                                    </div>
+                                </div>
+                                <div class="section-flex">
+                                    <input id="calc-lg" type="text" tabindex="2">
+                                    <button class="calc-reset-button" type="button">
+                                        <svg data-name="reset" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="calc-container">
+                        <div class="calc-content">
+                            <svg class="label-icon" data-name="device" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M4 6h18V4H4c-1.1 0-2 .9-2 2v11H0v3h14v-3H4V6zm19 2h-6c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h6c.55 0 1-.45 1-1V9c0-.55-.45-1-1-1zm-1 9h-4v-7h4v7z"/>
+                            </svg>
+                            <label>Calculated</label>
+                            <div class="section-flex">
+                                <input id="calc-result" type="text" readonly>
+                                <button class="calc-copy-button" type="button">
+                                    <svg data-name="copy" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M0 0h24v24H0z" fill="none"/>
+                                        <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="calc-container eg">
+                        <p>e.g. 360: 60px --- 1920: 120px</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(120 - 60) / (1920 - 360) * 100 = 3.846154vw</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;60 - (3.846154 * 360 / 100) = 46.153846px</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;calc(3.846154vw + 46.153846px)</p>
+                        <p>Another Way: calc(60px + (120 - 60) * ((100vw - 360px) / (1920 - 360)))</p>
+                    </div>
+                </form>
+            </section>
+            <section class="universe">
+                <div class="stars-small"></div>
+                <div class="stars-medium"></div>
+                <div class="stars-big"></div>
+            </section>
+        </main>
+        <script>
+            (function() {
+                "use strict";
+                const e = document.documentElement
+                  , t = document.querySelectorAll(".gn-button")
+                  , n = document.getElementById("theme-switch")
+                  , c = document.getElementById("breakpoint")
+                  , i = document.getElementById("px")
+                  , o = document.querySelectorAll(".vw")
+                  , s = document.getElementById("vw-1920")
+                  , l = document.getElementById("vw-375")
+                  , u = document.getElementById("vw-750")
+                  , a = document.getElementById("vw-360")
+                  , r = document.getElementById("vw-720")
+                  , d = c.querySelectorAll(".suffix")
+                  , m = c.querySelectorAll(".result")
+                  , p = document.querySelectorAll(".lock-button")
+                  , v = document.querySelectorAll(".copy-button")
+                  , f = document.getElementById("reset-button")
+                  , h = document.getElementById("calc-xs")
+                  , y = document.getElementById("calc-lg")
+                  , E = document.getElementById("calc-result")
+                  , g = document.querySelectorAll(".calc-button")
+                  , _ = document.querySelector(".calc-copy-button")
+                  , L = document.querySelectorAll(".calc-reset-button")
+                  , b = document.getElementById("calc-xs-customize")
+                  , w = document.getElementById("calc-xs-customize-field")
+                  , k = document.getElementById("calc-lg-customize")
+                  , S = document.querySelector(".calc-button-lg")
+                  , C = document.getElementById("calc-lg-customize-field");
+                let x = !0
+                  , A = !1
+                  , $ = 360
+                  , B = 360
+                  , I = 1920;
+                const q = {
+                    init: function() {
+                        this.navigation(),
+                        this.theme(),
+                        this.breakpoint.init(),
+                        this.calculate.init(),
+                        this.keyActions.init(),
+                        this.setupFocus(),
+                        this.clearCache(),
+                        this.rippleButton()
+                    },
+                    navigation: function() {
+                        t.forEach(function(e) {
+                            e.addEventListener("click", function() {
+                                let e = this.getAttribute("data-id");
+                                document.querySelector(".gn-button.current").classList.remove("current"),
+                                this.classList.add("current"),
+                                document.querySelector(".section.current").classList.remove("current"),
+                                document.querySelector('.section[data-id="' + e + '"]').classList.add("current"),
+                                1 == e ? (i.focus(),
+                                i.select(),
+                                x = !0,
+                                A = !1) : 2 == e && (h.focus(),
+                                h.select(),
+                                x = !1,
+                                A = !0)
+                            })
+                        })
+                    },
+                    theme: function() {
+                        function t(e, t, n) {
+                            let c = new Date;
+                            c.setDate(c.getDate() + n),
+                            document.cookie = encodeURIComponent(e) + "=" + encodeURIComponent(t) + ";expires=" + c.toUTCString() + ";path=/"
+                        }
+                        function c(e) {
+                            let t = document.cookie.match(new RegExp("(^| )" + e + "=([^;]*)(;|$)"));
+                            return t ? decodeURIComponent(t[2]) : null
+                        }
+                        n.addEventListener("click", function() {
+                            "classic" === e.getAttribute("data-theme") ? (e.setAttribute("data-theme", "modern"),
+                            t("devcalc-theme", "modern", 7)) : (e.setAttribute("data-theme", "classic"),
+                            t("devcalc-theme", "classic", 7))
+                        });
+                        let i = c("devcalc-theme");
+                        "modern" === i ? e.setAttribute("data-theme", "modern") : "classic" === i && e.setAttribute("data-theme", "classic")
+                    },
+                    converter: function(e) {
+                        return Math.round(e * Math.pow(10, 6)) / Math.pow(10, 6)
+                    },
+                    breakpoint: {
+                        init: function() {
+                            this.setupKeyup(),
+                            this.setupSuffix(),
+                            this.setupLock(),
+                            this.setupCopy(),
+                            this.setupReset()
+                        },
+                        setupKeyup: function() {
+                            i.addEventListener("keyup", function() {
+                                let e = this.value.replace(/[^\d^\.]/g, "").replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
+                                this.value = e,
+                                e && 0 != e && "." != e ? (s.value = q.converter(e / 19.2),
+                                l.value = q.converter(e / 3.75),
+                                u.value = q.converter(e / 7.5),
+                                a.value = q.converter(e / 3.6),
+                                r.value = q.converter(e / 7.2),
+                                o.forEach(function(e) {
+                                    e.nextElementSibling.nextElementSibling.value = e.value + e.nextElementSibling.value
+                                })) : (o.forEach(function(e) {
+                                    e.value = ""
+                                }),
+                                m.forEach(function(e) {
+                                    e.value = ""
+                                }))
+                            })
+                        },
+                        setupSuffix: function() {
+                            d.forEach(function(e) {
+                                e.addEventListener("click", function() {
+                                    let e = this.value;
+                                    e = "vw" == e ? "vw;//" : "vw";
+                                    for (let t = 0; t < d.length; t++) {
+                                        let n = o[t].value
+                                          , c = d[t].nextElementSibling;
+                                        d[t].value = e,
+                                        i.value && 0 != i.value && (c.value = n + e)
+                                    }
+                                })
+                            })
+                        },
+                        setupLock: function() {
+                            p.forEach(function(e) {
+                                e.onclick = function() {
+                                    document.querySelector(".locked").classList.remove("locked"),
+                                    this.parentNode.classList.add("locked")
+                                }
+                            })
+                        },
+                        setupCopy: function() {
+                            v.forEach(function(e) {
+                                e.onclick = function() {
+                                    let e = i.value
+                                      , t = document.createAttribute("aria-label");
+                                    t.nodeValue = "Copied!",
+                                    document.querySelector(".locked").classList.remove("locked"),
+                                    this.parentNode.classList.add("locked"),
+                                    e && "." != e && 0 != e ? (this.classList.add("tips"),
+                                    this.setAttributeNode(t),
+                                    this.previousElementSibling.select(),
+                                    document.execCommand("Copy"),
+                                    this.previousElementSibling.previousElementSibling.previousElementSibling.select()) : (i.value = "",
+                                    i.focus())
+                                }
+                                ,
+                                e.onmouseleave = function() {
+                                    this.classList.remove("tips"),
+                                    this.removeAttribute("aria-label")
+                                }
+                            })
+                        },
+                        setupReset: function() {
+                            f.onclick = function() {
+                                i.value = "",
+                                i.focus(),
+                                o.forEach(function(e) {
+                                    e.value = ""
+                                }),
+                                m.forEach(function(e) {
+                                    e.value = ""
+                                })
+                            }
+                        }
+                    },
+                    keyActions: {
+                        init: function() {
+                            this.pressEnterCopy(),
+                            this.pressEscReset()
+                        },
+                        pressEnterCopy: function() {
+                            window.addEventListener("keydown", function(e) {
+                                "Enter" === e.key && (!0 === x ? v.forEach(function(e) {
+                                    e.parentNode.className.match("locked") && (e.click(),
+                                    e.classList.add("active"),
+                                    setTimeout(function() {
+                                        e.classList.remove("tips", "active")
+                                    }, 2048))
+                                }) : !0 === A && (_.click(),
+                                _.classList.add("active"),
+                                setTimeout(function() {
+                                    _.classList.remove("tips", "active")
+                                }, 2048)))
+                            }, !0)
+                        },
+                        pressEscReset: function() {
+                            window.addEventListener("keydown", function(e) {
+                                "Escape" == e.key && f.click()
+                            }, !0)
+                        }
+                    },
+                    calculate: {
+                        init: function() {
+                            this.setupKeyup(h),
+                            this.setupKeyup(y),
+                            this.setupKeyup(w),
+                            this.setupKeyup(C),
+                            this.xsChange(),
+                            this.lgChange(),
+                            this.setupCopy(),
+                            this.setupReset()
+                        },
+                        setupKeyup: function(e) {
+                            e.addEventListener("keyup", function() {
+                                let e = h.value.replace(/[^\d^\.]/g, "").replace(".", "$#$").replace(/\./g, "").replace("$#$", ".")
+                                  , t = y.value.replace(/[^\d^\.]/g, "").replace(".", "$#$").replace(/\./g, "").replace("$#$", ".")
+                                  , n = w.value.replace(/[^\d^\.]/g, "").replace(".", "$#$").replace(/\./g, "").replace("$#$", ".")
+                                  , c = C.value.replace(/[^\d^\.]/g, "").replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
+                                if (b.classList.contains("current") && ($ = n),
+                                k.classList.contains("current") && (I = c),
+                                h.value = e,
+                                y.value = t,
+                                w.value = n,
+                                C.value = c,
+                                t && "." != t && e && "." != e) {
+                                    let n = q.converter((t - e) / (I - $) * 100)
+                                      , c = q.converter(e - n * $ / 100)
+                                      , i = c > 0 && n > 0 ? " + " : " - "
+                                      , o = Math.abs(n)
+                                      , s = Math.abs(c)
+                                      , l = n > 0 ? "calc(" + o + "vw" + i + s + "px)" : "calc(" + s + "px" + i + o + "vw)";
+                                    E.value = l
+                                } else
+                                    E.value = ""
+                            }),
+                            e.dispatchEvent(new Event("keyup"))
+                        },
+                        xsChange: function() {
+                            g.forEach(function(e) {
+                                e.addEventListener("click", function() {
+                                    g.forEach(function(e) {
+                                        e.classList.remove("current")
+                                    }),
+                                    b.classList.remove("current"),
+                                    this.classList.add("current"),
+                                    B = Number(this.innerHTML),
+                                    $ = Number(this.innerHTML),
+                                    q.calculate.setupKeyup(h),
+                                    h.select()
+                                })
+                            }),
+                            b.addEventListener("click", function() {
+                                document.querySelector(".calc-button.current").classList.remove("current"),
+                                this.classList.add("current"),
+                                $ = Number(w.value),
+                                w.select(),
+                                E.value = ""
+                            })
+                        },
+                        lgChange: function() {
+                            k.addEventListener("click", function() {
+                                S.classList.remove("current"),
+                                this.classList.add("current"),
+                                I = Number(C.value),
+                                C.select(),
+                                E.value = ""
+                            }),
+                            S.addEventListener("click", function() {
+                                k.classList.remove("current"),
+                                this.classList.add("current"),
+                                I = Number(this.innerHTML),
+                                console.log(I),
+                                q.calculate.setupKeyup(y)
+                            })
+                        },
+                        setupCopy: function() {
+                            _.onclick = function() {
+                                let e = E.value
+                                  , t = y.value
+                                  , n = h.value
+                                  , c = document.createAttribute("aria-label");
+                                c.nodeValue = "Copied!",
+                                e ? (this.classList.add("tips"),
+                                this.setAttributeNode(c),
+                                this.previousElementSibling.select(),
+                                document.execCommand("Copy")) : (t || y.focus(),
+                                n || h.focus())
+                            }
+                            ,
+                            _.onmouseleave = function() {
+                                this.classList.remove("tips"),
+                                this.removeAttribute("aria-label")
+                            }
+                        },
+                        setupReset: function() {
+                            L.forEach(function(e) {
+                                e.onclick = function() {
+                                    this.previousElementSibling.value = "",
+                                    this.previousElementSibling.focus(),
+                                    E.value = ""
+                                }
+                            })
+                        }
+                    },
+                    setupFocus: function() {
+                        window.addEventListener("focus", function() {
+                            !0 === x ? i.select() : !0 === A && h.select()
+                        }),
+                        i.addEventListener("mouseover", function() {
+                            this.select()
+                        }),
+                        h.addEventListener("mouseover", function() {
+                            this.select()
+                        }),
+                        y.addEventListener("mouseover", function() {
+                            this.select()
+                        })
+                    },
+                    clearCache: function() {
+                        let e = window.location.href;
+                        if (e.match("/?/") && (e = e.split("?")[0]),
+                        !window.name) {
+                            let t = Math.random().toString(36).substr(2);
+                            window.location.href = e + "?s=" + t,
+                            window.name = "DevCalc"
+                        }
+                        setTimeout(function() {
+                            window.name = ""
+                        }, 1024)
+                    },
+                    rippleButton: function() {
+                        const e = document.querySelectorAll(".ripple-button");
+                        e.forEach(function(e) {
+                            let t, n = e.clientWidth, c = e.clientHeight, i = e.getBoundingClientRect().top, o = e.getBoundingClientRect().left, s = Math.min(n, c), l = s / 2, u = Math.sqrt(Math.pow(n, 2) + Math.pow(c, 2)) + 5, a = u / s, r = n / 2 - l;
+                            e.style.setProperty("--ripple-size", s + "px"),
+                            e.style.setProperty("--ripple-end", r + "px,0"),
+                            e.addEventListener("mousedown", function(t) {
+                                let n = t.pageX
+                                  , c = t.pageY
+                                  , s = n - o - l
+                                  , u = c - i - l;
+                                e.style.setProperty("--ripple-start", s + "px," + u + "px"),
+                                e.style.setProperty("--ripple-scale", a),
+                                e.classList.add("active")
+                            }),
+                            e.addEventListener("mouseup", function() {
+                                clearTimeout(t),
+                                t = setTimeout(function() {
+                                    e.classList.remove("active")
+                                }, 225)
+                            })
+                        })
+                    }
+                };
+                document.addEventListener("DOMContentLoaded", function() {
+                    q.init(),
+                    console.log(" ____              ____      _      \n|  _ \\  _____   __/ ___|__ _| | ___ \n| | | |/ _ \\ \\ / / |   / _` | |/ __|\n| |_| |  __/\\ V /| |__| (_| | | (__ \n|____/ \\___| \\_/  \\____\\__,_|_|\\___|\n-----------------------------------------------------------------\nany idears please feel free to contact zhi.shen@concentrix.com :)\n-----------------------------------------------------------------\n")
+                }),
+                window.onload = function() {
+                    i.focus()
+                }
+            }
+            )();
+        </script>
+    </body>
+</html>

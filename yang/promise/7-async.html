@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		
+		<script>
+			
+			// 1.被async修饰过的函数 他的返回值就会是一个promise对象 
+			// 如果没有返回值就是fulfilled  
+			// 如果返回的是一个字符串或者数字 这个函数的返回值就是promise对象 状态是成功 值就是这个函数的返回值
+			// 如果返回的是一个promise对象 这个函数的返回值就是promise对象 状态是返回promise对象的状态 值就是这个是返回promise对象的值 throw也是一样
+			
+			
+			async function main(){
+				
+				return new Promise((result,reject)=>{
+					throw("no ok")
+				})
+			}
+			let result = main();
+		
+		console.log(result)
+			
+		</script>
+	</body>
+</html>

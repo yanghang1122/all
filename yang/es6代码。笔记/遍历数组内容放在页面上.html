@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+
+		<ul id="ul_list">
+
+		</ul>
+
+		<script type="text/javascript">
+			let persons = [{
+					id: "01",
+					name: "yang"
+				},
+				{
+					id: "02",
+					name: "hang"
+				}
+			]
+
+			let htmlstr = '';
+
+			persons.forEach(p => {
+				htmlstr += `<li>${p.id} - ${p.name}</li>`
+			})
+
+			let list = document.querySelector("#ul_list");
+
+			list.innerHTML = htmlstr
+		</script>
+	</body>
+</html>

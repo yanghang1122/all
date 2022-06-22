@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	
+	</head>
+	<body>
+
+	<button id="btn">点击</button>
+		<script type="text/javascript">
+			// promise是一个构造函数 他可以进行实例化	
+			// 在实例话的时候接受一个参数 参数一个函数 函数还有两个形参 resolve和reject都是函数类型的数据
+			
+			
+			
+			function rand(m, n) {
+				return Math.ceil(Math.random() * (n - m + 1)) + m - 1;
+			}
+			let btn = document.querySelector("#btn")
+
+
+
+			btn.addEventListener("click", function(){
+					
+				// 用promise去封装一个异步的操作 在成功的时候掉resolve失败掉reject 并且把成功的结果传给resovle函数
+				const p = new Promise((resolve, reject) => {
+					setTimeout(() => {
+						let n = rand(1, 100)
+
+						if (n <= 30) {
+							//调用成功的回调
+							resolve(n);
+						} else {
+							//调用失败的回调
+							reject(n);
+						}
+
+					}, 1000)
+				});
+				
+				console.log(p)
+				
+				// 调用then方法去处理成功和失败的结果
+				p.then((value) => {
+					console.log("成功"+value)
+				}, (reason) => {
+					console.log("失败"+reason)
+				})
+			})
+			
+			
+
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			
+		// lazySize config
+		    window.lazySizesConfig = window.lazySizesConfig || {}
+		    lazySizesConfig.expand = 1500
+		    lazySizesConfig.expFactor = 3
+		
+		    var userAgentInfo = navigator.userAgent.toLowerCase();
+		    var isIE11 = !!window.ActiveXObject || "ActiveXObject" in window,
+		        isEdgeOld = navigator.userAgent.indexOf("Edge/") > -1,
+		        isEdgeNew = navigator.userAgent.indexOf("Edg/") > -1,
+		        isSafari = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent),
+		        isUC = navigator.userAgent.indexOf('UCBrowser') > -1,
+		        isHW = userAgentInfo.indexOf("HuaweiBrowser") > -1,
+		        isFF = userAgentInfo.indexOf("Firefox") > -1,
+		        isWX = userAgentInfo.toLowerCase().match(/MicroMessenger/i) == 'micromessenger';
+		    var viewportWidth = document.documentElement.clientWidth,
+		        viewportHeight = document.documentElement.clientHeight,
+		        aspectRatio = viewportWidth / viewportHeight;
+		    var isMob = aspectRatio < 1.1, isMateX=aspectRatio < 1.1 && aspectRatio> 0.9;
+		    var headerHeight = $('#header-v4').height();
+		    var secNavHeight = $('#second-navigation-v4').height();
+			
+			
+			let isMobile = window.innerWidth <= 600 || (window.innerWidth <= 1200 && window.innerWidth / window.innerHeight <= 1) || (window.innerWidth = 677);
+			let is_mob = window.innerWidth / window.innerHeight <= 11 / 10;
+			
+		</script>
+	</body>
+</html>

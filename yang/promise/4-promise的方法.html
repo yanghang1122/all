@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script>
+			
+			//调用resolve传入一个参数数字或字符串都是成功的promise 如果传入的是一个promise的对象 那么他的结果就是传入的promise的结果
+			
+			// const p1 = Promise.resolve("aa")
+			// const p1 = Promise.resolve(new Promise((resolve,reject)=>{
+			// 	resolve("a")
+			// }))
+			// console.log(p1)
+			
+			
+			//调用reject传入一个参数数字或字符串都是失败的promise 如果传入的是一个promise的对象 那么他的状态就是失败 他的结果就是传入的promise的结果
+			// const p2 = Promise.reject("aa")
+			// const p2 = Promise.reject(new Promise((resolve,reject)=>{
+			// 	resolve("a")
+			// }))
+			// console.log(p2)
+			
+			
+			
+			//调用all他的结果就是他们成功的结果值  如果有一个失败的 他的结果值就是失败的promise对象  
+			// race他也是传入一堆promise对象 他的结果是取第一个promise的结果 如果第一个是一个定时器一个异步任务就会走第二个
+			const p1 = Promise.resolve("aa")
+			const p2 = Promise.resolve("aa")
+			const p3 = Promise.resolve("aa")
+			const p4 = Promise.all([p1,p2,p3])
+			console.log(p4)
+			
+			
+		</script>
+	</body>
+</html>

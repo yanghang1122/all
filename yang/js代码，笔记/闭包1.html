@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+		
+		
+		//什么是闭包
+		//闭包是嵌套的内部函数
+		
+		//产生闭包的条件
+		//函数嵌套 内部函数引用了外部函数的变量 并且执行外部函数
+		
+		//闭包的作用
+		//使函数内部的变量在函数执行完 没有消失 仍然存在
+		//让函数外部 可以操作函数内部的数据
+		
+		//闭包的第二种写法 外层是匿名函数 里面有两个函数 放到一个对象里面 然后就能对象点属性 调用了
+		
+		
+		
+		/*function fun1(){
+			//alert("执行了fun1")
+			var a = 1;
+			function fun2(){
+				console.log(a++)
+			}
+			function fun3(){
+				console.log(a--)
+			}
+			return {
+				fun2: fun2,
+				fun3: fun3
+			}
+		}
+
+		var fn = fun1();
+		fn.fun3();
+		fn.fun3();*/
+		
+		
+
+		(function(){
+			var a = 1;
+			function fun1(){
+				console.log(a++)
+			}
+			function fun2(){
+				console.log(a--)
+			}
+			
+			window.funs = {
+				fun1: fun1,
+				fun2: fun2
+			}
+			
+			
+			
+		})()
+		
+		funs.fun1();
+		funs.fun1();
+		
+		
+		
+	
+			
+		</script>
+	</body>
+</html>

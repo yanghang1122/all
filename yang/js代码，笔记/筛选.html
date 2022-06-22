@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			.sec1-tit {
+				color: #000000;
+			}
+
+			.sec1-filter {
+				width: 60vw;
+				display: flex;
+				justify-content: space-between;
+				margin: 5vw auto 0 auto;
+				font-size: 1.5vw;
+				color: #DCDCDC;
+				cursor: pointer;
+			}
+
+			.color-red {
+				color: #CF0A2C;
+			}
+
+			.box {
+				width: 90vw;
+				margin: 4vw auto 0 auto;
+				display: flex;
+				flex-wrap: wrap;
+			}
+
+			.box-item {
+				width: 29vw;
+				margin-bottom: 3vw;
+
+			}
+
+			.hide {
+				display: none;
+			}
+
+			.show {
+				display: block;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="sec1-filter">
+			<div class="sec1-tit">
+				业务领域:
+			</div>
+			<div id="filter-1-all" class="color-red">
+				全部
+			</div>
+			<div id="filter-1-1" class="filter-1-option filter-1-1">
+				filter-1-1
+			</div>
+			<div id="filter-1-2" class="filter-1-option filter-1-2">
+				filter-1-2
+			</div>
+			<div id="filter-1-3" class="filter-1-option filter-1-3">
+				filter-1-3
+			</div>
+			<div id="filter-1-4" class="filter-1-option filter-1-4">
+				filter-1-4
+			</div>
+			<div id="filter-1-5" class="filter-1-option filter-1-5">
+				filter-1-5
+			</div>
+			<div id="filter-1-6" class="filter-1-option filter-1-6">
+				filter-1-6
+			</div>
+
+		</div>
+
+
+		<div class="box">
+			<div class="box-item filter-1-1">
+				filter-1-1
+			</div>
+			<div class="box-item filter-1-2">
+				filter-1-2
+			</div>
+			<div class="box-item filter-1-3">
+				filter-1-3
+			</div>
+			<div class="box-item filter-1-4">
+				filter-1-4
+			</div>
+			<div class="box-item filter-1-5">
+				filter-1-5
+			</div>
+			<div class="box-item filter-1-6">
+				filter-1-6
+			</div>
+			<div class="box-item filter-1-3">
+				filter-1-3
+			</div>
+			<div class="box-item filter-1-4">
+				filter-1-4
+			</div>
+			<div class="box-item filter-1-5">
+				filter-1-5
+			</div>
+			<div class="box-item filter-1-6">
+				filter-1-6
+			</div>
+			<div class="box-item filter-1-5">
+				filter-1-5
+			</div>
+			<div class="box-item filter-1-6">
+				filter-1-6
+			</div>
+
+
+
+		</div>
+
+		<script type="text/javascript">
+			document.addEventListener('DOMContentLoaded', function() {
+				console.info('load');
+				var box_item1 = document.querySelectorAll(".box-item");
+				var filter1 = document.querySelectorAll(".filter-1-option");
+				var filter1_all = document.querySelector("#filter-1-all");
+				var filter1_color = document.getElementsByClassName("color-red");
+				var elements = [];
+				var filterArr = [];
+
+				for (var i = 0; i < filter1.length; i++) {
+					filter1[i].onclick = function() {
+						filter1_all.classList.remove("color-red");
+						this.classList.toggle("color-red")
+						if (filter1_color.length == filter1.length) {
+							for (var k = 0; k < filter1.length; k++) {
+								filter1[k].classList.remove("color-red");
+								filter1_all.classList.add("color-red");
+							}
+						}
+						if (filter1_color.length == 0) {
+							filter1_all.classList.add("color-red");
+						}
+
+						//filter-1-option filter-1-1 color-red
+						//获取当前元素类名的filter-1-几的值
+						var clickedIndex = this.className.split(' ')[1];
+						
+						// filterArr.push(clickedIndex);
+						// console.info(filterArr)
+						filterArr=[];
+						let seletedEles = document.querySelectorAll('.filter-1-option.color-red');
+						for(let x = 0; x< seletedEles.length; x++) {
+							filterArr.push(seletedEles[x].id);
+						}
+						console.info(filterArr)
+						
+						for (var y = 0; y < box_item1.length; y++) {
+							box_item1[y].classList.remove("hide");
+							
+							if (filterArr.indexOf(box_item1[y].className.split(' ')[1])<0) {
+								box_item1[y].classList.add("hide");
+							}
+						}
+					}
+					filter1_all.onclick = function() {
+						for (var l = 0; l < filter1.length; l++) {
+							filter1[l].classList.remove("color-red");
+							filter1_all.classList.add("color-red");
+						}
+					}
+				}
+			})
+		</script>
+
+
+	</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1.0, minimum-scale=0.2, maximum-scale=5.0, user-scalable=yes" />
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				font-size: 0;
+			}
+
+			.content {
+				width: 90%;
+				display: flex;
+				justify-content: space-between;
+				margin: 0 auto;
+			}
+
+			.content div {
+				font-size: 28px;
+				line-height: 1.25;
+				cursor: pointer;
+			}
+
+			.content-item {
+				width: 90%;
+				display: flex;
+				justify-content: space-between;
+				margin: 0 auto;
+				margin-top: 5vw;
+			}
+
+
+			.content-item div {
+				font-size: 28px;
+				line-height: 1.25;
+				cursor: pointer;
+				display: none;
+			}
+
+
+			.show {
+				display: block !important;
+			}
+		</style>
+	</head>
+	<body>
+
+		<div class="content">
+
+			<div data-index="1">
+				1
+			</div>
+			<div data-index="2">
+				2
+			</div>
+			<div data-index="3">
+				3
+			</div>
+			<div data-index="4">
+				4
+			</div>
+			<div data-index="5">
+				5
+			</div>
+			<div data-index="6">
+				6
+			</div>
+			<div data-index="7">
+				7
+			</div>
+			<div data-index="8">
+				8
+			</div>
+			<div data-index="9">
+				9
+			</div>
+			
+
+
+		</div>
+
+
+
+
+
+		<div class="content-item">
+
+			<div data-index="1">
+				1
+			</div>
+			<div data-index="2">
+				2
+			</div>
+			<div data-index="3">
+				3
+			</div>
+			<div data-index="4">
+				4
+			</div>
+			<div data-index="5">
+				5
+			</div>
+			<div data-index="6">
+				6
+			</div>
+			
+			<div data-index="7">
+				7
+			</div>
+			<div data-index="8">
+				8
+			</div>
+			<div data-index="9">
+				9
+			</div>
+
+
+		</div>
+
+
+		<script src="../js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function() {
+				$(".content div").each(function() {
+					$(this).on("click", function() {
+						//获取点击元素的data-index属性的数值
+						var x = $(this).attr("data-index");
+						//遍历所有要显示的元素
+						$(".content-item div").each(function() {
+							//获取所有要显示元素的data-index属性
+							var z = $(this).attr('data-index');
+							//拿点击元素的data-index属性跟遍历出的所有对比，如果等于就把当前的加上显示，兄弟元素移除显示
+							if (x == z) {
+								$(this).addClass('show').siblings().removeClass('show');
+							}
+
+
+						});
+
+					})
+
+				})
+
+
+
+			})
+		</script>
+
+
+	</body>
+</html>

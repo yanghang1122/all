@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		
+		<script>
+			
+			// await 就是对右侧promise对象结果的一个获取
+			
+			// 如果右侧是一个数字或者字符串 结果就是对应的数字或字符串
+			// 如果右侧是一个成功的promise对象 那么结果就是这个右侧promise对象的结果
+			// 如果右侧是一个失败的promise对象 需要用try catch 里面的catch 来捕获这个promise对象失败的结果值
+			
+			async function main(){
+				
+				// let p = 10
+				
+				let p = new Promise((resolve,reject)=>{
+					reject("no ok")
+				})
+				
+				
+				try{
+					let res = await p;
+				}catch(e){
+					console.log(e)
+				}
+				
+				// console.log(res)
+				
+			} 
+			
+			main()
+			
+			
+			
+		</script>
+	</body>
+</html>

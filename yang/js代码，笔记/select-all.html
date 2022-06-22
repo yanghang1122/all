@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		全选<input type="checkbox" class="all" id="all" value="全选" />
+		<br>
+		篮球<input type="checkbox" class="qiu" value="篮球" />
+		篮球<input type="checkbox" class="qiu" value="足球" />
+		篮球<input type="checkbox" class="qiu" value="足球" />
+		篮球<input type="checkbox" class="qiu" value="足球" />
+		
+		<script type="text/javascript">
+			window.onload = function(){
+				//取一个
+				var all = document.querySelector("#all");
+				//取一个数组
+				var qiu = document.querySelectorAll(".qiu")
+				all.onclick = function(){
+					if(all.checked){
+						for(var i=0;i<qiu.length;i++){
+							qiu[i].checked = true;
+						}
+					}else{
+						for(var i=0;i<qiu.length;i++){
+							qiu[i].checked = false;
+						}
+					}
+				}
+				//循环添加点击事件
+				for(var j=0;j<qiu.length;j++){
+					qiu[j].onclick = function(){
+						all.checked = true;
+						//循环判断
+						for(var k=0; k<qiu.length; k++){
+							
+							if(qiu[k].checked == false){
+								// alert(11)
+								all.checked = false;
+							}
+						}
+					}
+				}
+				
+			}
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+				font-size: 0;
+			}
+			img{
+				width: 100%;
+			}
+			.sec1{
+				width: 100%;
+				height: 200vh;
+				position: relative;
+			}
+			.sec1_content{
+				position: sticky;
+				    height: calc(100vh - 104px);
+				    top: 104px;
+				    overflow: hidden;
+				    display: flex;
+					/* 啥意思 */
+				    flex-direction: column;
+				    align-items: center;
+				    justify-content: center;
+			}
+			
+			.sec1-pic{
+				width: 100vw;
+					transform: scale(0.714);
+					overflow: hidden;
+					border-radius: 20px;
+			}
+			
+			.sec1-txt{
+				position: absolute;
+				    left: 14.322917vw;
+				    top: 14.5vw;
+				    color: #000;
+					font-size: 48px;
+					opacity: 0;
+						transform: translateY(50vh);
+			}
+			
+			
+			.sec1-bg{
+				position: absolute;
+				    top: 0;
+				    left: 0;
+				    width: 100%;
+				    height: 100%;
+				    background-color: #000;
+				    opacity: 0;
+			}
+			.sec1-txt>h2{
+				font-size: 48px;
+			}
+		</style>
+		
+	</head>
+	<body>
+		
+	<img src="../img/banner.jpg" style="width: 100%;">
+	<img src="../img/banner.jpg" style="width: 100%;">
+	<img src="../img/banner.jpg" style="width: 100%;">
+	<img src="../img/banner.jpg" style="width: 100%;">
+	
+		
+		
+		
+		<div class="sec1">
+			<div id="trigger_1"></div>
+			
+			<div class="sec1_content">
+				<div class="sec1-pic">
+					<img src="../img/sec-1.jpg" >
+					<div class="sec1-bg"></div>
+				</div>
+				<div class="sec1-txt">
+					<h2>哈哈哈哈哈</h2>
+				</div>
+			</div>
+
+		</div>
+		
+		
+		
+		
+		<img src="../img/banner.jpg" style="width: 100%;">
+		<img src="../img/banner.jpg" style="width: 100%;">
+		<img src="../img/banner.jpg" style="width: 100%;">
+		<img src="../img/banner.jpg" style="width: 100%;">
+		
+		
+		
+		
+		
+		
+		
+		
+		<script src="../js/jquery-3.6.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/ScrollMagic.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/TweenMax.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/animation.gsap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/debug.addIndicators.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			
+			
+			
+			   var efficient = new TimelineMax(); 
+			            efficient.to($('.sec1-pic'), 1, {
+			                scale: 1,
+			                'border-radius': 0,
+			                delay: .2
+			            }), 
+			            efficient.add([
+							// TweenMax.to($('.sec1-pic'), 1, {
+							//    scale: 1,
+							//    'border-radius': 0,
+							//    delay: .2
+							  
+							// }),
+			                TweenMax.to($('.sec1-bg'), 1, {
+			                    opacity: .5,
+			                    // delay: 0.5
+			                }),
+			                TweenMax.to($('.sec1-txt'), 1, {
+			                    y: 0,
+			                    opacity: 1,
+			                  
+			                }),
+							
+							
+							
+			            ])
+						
+						
+						
+						var controller = new ScrollMagic.Controller();
+			            new ScrollMagic.Scene({
+			                triggerElement: "#trigger_1",
+			                triggerHook: 1,
+			                duration: '200%'
+			            })
+			            .setTween(efficient)
+			            .addTo(controller)
+			            .addIndicators({
+			            		name: "staggering"
+			            })	
+			        
+			
+			
+		</script>
+		
+		
+	</body>
+</html>

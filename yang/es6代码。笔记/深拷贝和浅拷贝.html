@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+
+
+		<script type="text/javascript">
+			/*原理： 用JSON.stringify将对象转成JSON字符串，再用JSON.parse()把字符串解析成对象，一去一来，新的对象产生了，而且对象会开辟新的栈，实现深拷贝。
+		这种方法虽然可以实现数组或对象深拷贝，但不能处理函数。
+		这是因为 JSON.stringify() 方法是将一个JavaScript值(对象或者数组)转换为一个 JSON字符串，不能接受函数。*/
+			// let objnew = JSON.parse(JSON.stringify(obj))
+
+
+
+
+
+
+			let obj = {
+				a: 1,
+				b: [{
+					c: 2
+				}]
+			}
+
+
+			//递归来实现深拷贝
+			function deepClone(obj) {
+				var newObj = obj instanceof Array ? [] : {};
+				if (typeof obj !== 'object') {
+					return obj;
+				} else {
+					for (var i in obj) {
+						newObj[i] = typeof obj[i] === 'object' ? deepClone(obj[i]) : obj[i];
+					}
+				}
+				return newObj;
+			}
+
+
+			var objnew = deepClone(obj)
+			console.log(objnew)
+			
+			
+			
+		</script>
+	</body>
+</html>

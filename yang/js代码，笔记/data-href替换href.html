@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1.0, minimum-scale=0.2, maximum-scale=5.0, user-scalable=yes" />
+
+	</head>
+	<body>
+
+
+
+		<div id="content">
+
+			<a href="www.baidu.com" class="btn" data-btn-href="www.souhu.com">按钮</a>
+
+		</div>
+
+
+
+
+		<script src="../js/jquery-3.6.0.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function() {
+				$(".btn").each(function(){
+					$(this).attr("href", $(this).attr("data-btn-href"));
+					console.log(this)
+				})
+			})
+		</script>
+	</body>
+</html>

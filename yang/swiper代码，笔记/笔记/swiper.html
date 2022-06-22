@@ -1,0 +1,67 @@
+
+https://www.swiper.com.cn/api/start/new.html
+//循环
+loop: true,
+//显示几个 css写的宽度17vw 也可写小数
+slidesPerView : 'auto',
+//边距七个百分比
+spaceBetween : "7%",
+//active那个居中
+centeredSlides : true,
+//分页器
+pagination: {
+el: '.swiper-pagination',
+},
+//左右切换箭头
+navigation: {
+nextEl: '.swiper-button-next',
+prevEl: '.swiper-button-prev',
+},
+//滚动条
+scrollbar: {
+el: '.swiper-scrollbar',
+},
+//允许拖动滚动条
+draggable: true,
+//释放滚动条时，会自动贴合
+snapOnRelease: true,
+//swiper拖拽有惯性
+freeMode : true,
+//拖拽之后也能自动贴合
+freeModeSticky : true,
+//切换效果淡入淡出
+effect : 'fade',
+//默认不初始化，可以稍后使用mySwiper.init()来初始化
+init: false, |  mySwiper.init();
+//在Loop模式下Swiper切换到指定slide
+mySwiper_photo.slideToLoop(1, 0, false);
+
+
+
+
+//分页器取消点击出现蓝框
+.mob-swiper .swiper-pagination-bullet {
+	cursor: none;
+}
+.mob-swiper .swiper-pagination-bullet:focus {
+	outline: none;
+}
+
+
+//左右切换箭头取消点击出现蓝框
+.swiper-button-next,
+.swiper-container-rtl .swiper-button-prev {
+	cursor: none;
+}
+.swiper-button-prev,
+.swiper-container-rtl .swiper-button-next {
+	cursor: none;
+}
+.swiper-button-next,
+.swiper-container-rtl .swiper-button-prev:focus {
+	outline: none;
+}
+.swiper-button-prev,
+.swiper-container-rtl .swiper-button-next:focus {
+	outline: none;
+}

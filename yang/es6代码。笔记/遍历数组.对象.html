@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		
+		
+		<script type="text/javascript">
+			
+			
+			
+			let arr = ["111","222","333"];
+			
+			var userMsg = {
+			    nick: {
+				name: 'nick',
+				age: 18,
+				sex: '男'	
+			    },
+			    freddy: {
+				name: 'freddy',
+				age: 24,
+				sex: '男'
+			    }	
+			};
+			
+			//获取对象所有的键
+			console.log(Object.keys(userMsg))
+			//获取对象所有的值
+			console.log(Object.values(userMsg))
+			
+			
+			//for of遍历数组元素
+			for(let ind of arr){
+				console.log(ind)
+			}
+			
+			//for in遍历数组元素
+			for(let ind in arr){
+				console.log(arr[ind])
+			}
+			
+			//for in遍历数组索引
+			for(let ind in arr){
+				console.log(ind)
+			}
+			
+			//相较于for循环，for in的功能会更加强大一些，使用范围也会更广，不但可以循环遍历数组，还可以循环遍历对象。代码中的index，key1，key2分别是目标对象（数组）中的键值（数组中叫习惯叫索引）。arr数组中的index分别0,1,2,3，userMsg对象下的key1分别是"nick"、"freddy"的键值, key2就是userMsg.nick和userMsg.freddy下的键值了，为"name"、"age"、"sex"。（for in在写法上会稍微复杂些，不过他很清晰的展示了循环过程）
+			for(var key1 in userMsg){
+			    for(var key2 in userMsg[key1]){
+					console.log(key1 +': ' + userMsg[key1][key2]);
+			    }
+			}
+			
+			console.log("--------------------------------------------")
+			
+			let obj = {
+				name:"aaa",
+				age:18
+			}
+			
+			
+			for(let ind in obj){
+			console.log(ind, obj[ind])	
+			}
+			
+		</script>
+		
+	</body>
+</html>

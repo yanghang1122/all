@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/swiper-bundle.min.css"/>
+		<style type="text/css">
+			img{
+				width: 100%;
+			}
+			*{
+				margin: 0;
+				padding: 0;
+				font-size: 0;
+			}
+			.swiper-slide{
+				transform: scale(.8);
+				transition: 1s;
+				/* width: 17vw; */
+			}
+			.swiper-slide-prev,.swiper-slide-next{
+				transform: scale(.9);
+				transition: 1s;
+			}
+			.swiper-slide-active{
+				transform: scale(1);
+				transition: 1s;
+			}
+			.box{
+				background-color: #DCDCDC;
+				padding: 3vw 0;
+				width: 100%;
+				position: relative;
+			}
+			
+			.swiper-container{
+				/* width: 100%; */
+			/* 	margin: 0 auto; */
+				
+			}
+			.box-img{
+				width: 17vw;
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%,-50%);
+				z-index: 999;
+			}
+		</style>
+	</head>
+	<body>
+		<img src="../img/banner.jpg" style="width: 100%;">
+		
+		<div class="box">
+			<div class="swiper-container">
+			  <div class="swiper-wrapper">
+			    <div class="swiper-slide">
+			
+					<img src="../img/interface1.png" >
+				</div>
+				<div class="swiper-slide">
+				
+					<img src="../img/interface1.png" >
+				</div>
+				<div class="swiper-slide">
+				
+					<img src="../img/interface1.png" >
+				</div>
+				<div class="swiper-slide">
+			
+					<img src="../img/interface1.png" >
+				</div>
+				<div class="swiper-slide">
+				
+					<img src="../img/interface1.png" >
+				</div>
+				
+			  
+			  </div>
+			</div>
+			<div class="box-img">
+				<img src="img/mobilephonebezels.png" >
+			</div>
+			
+		
+		</div>
+		
+		<img src="../img/banner.jpg" style="width: 100%;">
+		<img src="../img/banner.jpg" style="width: 100%;">
+		<img src="../img/banner.jpg" style="width: 100%;">
+		<img src="../img/banner.jpg" style="width: 100%;">
+		<img src="../img/banner.jpg" style="width: 100%;">
+		<img src="../img/banner.jpg" style="width: 100%;">
+		<img src="../img/banner.jpg" style="width: 100%;">
+		<img src="../img/banner.jpg" style="width: 100%;">
+		
+		<script src="../js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/swiper-bundle.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			var mySwiper = new Swiper('.swiper-container',{
+			//循环
+			loop: true,
+			//显示几个 css写的宽度17vw
+			slidesPerView : 4.6, 
+			//边距七个百分比
+			spaceBetween : "8%",
+			//active那个居中
+			centeredSlides : true,
+			})
+			
+			
+		</script>
+	</body>
+</html>

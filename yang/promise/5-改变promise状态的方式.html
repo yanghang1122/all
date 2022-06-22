@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			
+			let p = new Promise((resovle,reject)=>{
+				// promise对象的起始状态为pending
+				
+				// 调用resovle之后 promise对象的状态为 fulfilled (成功)
+				resovle();
+				
+				// 调用reject之后 promise对象的状态为 rejected (失败) 然后会爆一个错误 错误的原因是没有指定失败的回调
+				// reject();
+				
+				// 通过throw也可以将promise对象的状态变为失败 同样也会爆一个错误 错误的原因是没有指定失败的回调
+				// throw "aaa"
+			})
+			
+			
+			
+			console.log(p)
+			
+			
+			// 为一个promise对象指定多个回调列如 成功的回调 他们都会执行吗？
+			// 答：都会
+			
+			
+			// 改变promise对象的状态和promise对象成功或失败的回调哪个先执行
+			// 答：如果执行器函数中是一个异步任务就是回调先执行  如果是同步任务就是先改状态后执行回调
+			
+			// then返回的结果就是promise对象返回的结果
+			
+			
+			// promise异常穿透
+			// 就是一直.then 然后在最后也可以指定成功或失败的结果
+			
+			
+			// 如果阻断promise链 就是 return 一个待定的promise对象  
+		</script>
+	</body>
+</html>
