@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		
+		<script type="text/javascript">
+			
+			// 数组排序 会改变原数组 兼容ie
+			let arr = [1,4,6,8,3,5,64,3];
+			arr.sort(function(a,b){
+				return a-b
+			})
+			console.log(arr)
+			
+			
+			
+			//把数组转化为字符串 .join()里写分隔符 默认是, 
+			let arr = [1,4,6,8,3,5,64,3];
+			let arr2 = arr.join()
+			console.log(arr2)
+			
+			
+			
+			//  删除数组最后一个元素  删除第一个是shirt()
+			var arr = ["Banana", "Orange", "Apple", "Mango"];
+			// 接收那个删除的元素
+			let arr2 = arr.pop()
+			console.log(arr)     
+					
+					
+					
+			//向数组的最后添加一个元素 	向数组第一位添加元素是 unshift() 	
+			var arr = ["Banana", "Orange", "Apple", "Mango"];
+			//返回的是新数组的长度
+			var arr2 = arr.push("1")
+			console.log(arr2)	
+				
+				
+				
+			//向数组长度的索引位置添加一个元素  	
+			var arr = ["Banana", "Orange", "Apple", "Mango"];
+			arr[arr.length] = "Kiwi"; 
+			console.log(arr)	
+			
+			
+			
+			//合并数组 并返回一个新数组
+			var arr1 = ["Cecilie", "Lone"];
+			var arr2 = ["Emil", "Tobias", "Linus"];
+			var arr3 = ["Robin", "Morgan"];
+			var arr4 = arr1.concat(arr2, arr3);
+			//将数组和数值合并
+			var myChildren = arr1.concat(["Emil", "Tobias", "Linus"]); 
+			console.log(arr4)
+			
+			
+			
+			//删除数组第一个元素 会留下未定义的空洞 请用pop() shift() 替代
+			var arr = ["Banana", "Orange", "Apple", "Mango"];
+			delete arr[0]; 
+			console.log(arr)
+			
+			
+			
+			//slice() 方法用数组的某个片段切出新数组。
+			var arr = ["Banana", "Orange", "Lemon", "Apple", "Mango"];
+			//从数组元素 1 （"Orange"）开始切出一段数组：
+			var arr2 = arr.slice(1); 
+			//slice() 可接受两个参数，比如 (1, 3)。
+			//该方法会从开始参数选取元素，直到结束参数（不包括）为止
+			var arr3 = arr.slice(1,3); 
+			console.log(arr3)
+			
+			
+			
+			//splice() 方法返回一个包含已删除项的数组：
+			//第一个参数（2）定义了应添加新元素的位置（拼接）。
+			//第二个参数（0）定义应删除多少元素。
+			var arr = ["1", "2", "3", "4"];
+			arr.splice(2, 0, "5", "6");
+			/*第一个参数（0）定义新元素应该被添加（接入）的位置。
+			第二个参数（1）定义应该删除多个元素。
+			其余参数被省略。没有新元素将被添加。*/
+			arr.splice(0, 1);
+			console.log(arr)
+			
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<!-- 发布微博点击“按钮”，把文本框内容渲染到页面下方。
+		点击红色“X”，删除当前条内容。 -->
+		
+		<div class="app">
+			<textarea rows="10" cols="40" v-model="msg"></textarea>
+			<button @click="btn">点击新增</button>
+			<ul>
+				<li v-for="(item,index) in list" :key="index">{{item}} <span style="color: red; cursor: pointer; margin-left: 20px;" @click="close(index)">X</span></li>
+				
+			</ul>
+		</div>
+		
+		<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			new Vue({
+				el:".app",
+				data(){
+					return{
+						aaa:"aaa",
+						msg:"",
+						list:[]
+					}
+				},
+				methods:{
+					btn(){
+						if(this.msg != ''){
+							this.list.push(this.msg);
+						}
+						
+						this.msg = ''
+					},
+					close(index){
+						// 第一个参数的索引 第二个参数的要删除几位
+						this.list.splice(index,1)
+					}
+				}
+			})
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<style type="text/css">
+		td {
+			border: 1px solid;
+			padding: 20px;
+		}
+		
+		table {
+			border-spacing: 0;
+			border-collapse: collapse;
+		
+		}
+		.inputText{
+			width: 20px;
+		}
+	</style>
+	<body>
+		<div id="app">
+			<table border="" cellspacing="" cellpadding="">
+				<tr>
+					<td></td>
+					<td>书名</td>
+					<td>日期</td>
+					<td>价格</td>
+					<td>数量</td>
+					<td>操作</td>
+				</tr>
+				<tr v-for="(book,index) in books" :key="book.id">
+					<td>{{book.id}}</td>
+					<td>{{book.name}}</td>
+					<td>{{book.data}}</td>
+					<td>{{book.price}}</td>
+					<td>
+						<button @click="add(index)">+</button>
+						
+						<input class="inputText" type="text" v-model="book.num" v-show="book.showHide" @blur="blur" ref="id" />
+						<span @click="showText(index)"  v-show="!book.showHide">{{book.num}}</span>
+						
+						
+						<button type="button" @click="cut(index)">-</button>
+					</td>
+					<td><button type="button" @click="del(index)">删除</button></td>
+				</tr>
+			</table>
+			<h1>总价：{{totalPrice}}</h1>
+			
+			
+			
+			
+		</div>
+		
+		<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			new Vue({
+				el:"#app",
+				data(){
+					return{
+						
+						books:[
+							{
+								id:001,
+								name:"假如给我一天光明",
+								data:"2020-02-10",
+								price:50,
+								num:10,
+								showHide:false,
+							},
+							{
+								id:002,
+								name:"假如给我两天光明",
+								data:"2020-02-10",
+								price:60,
+								num:20,
+								showHide:false,
+							},
+							{
+								id:003,
+								name:"假如给我三天光明",
+								data:"2020-02-10",
+								price:70,
+								num:30,
+								showHide:false,
+							},
+							{
+								id:004,
+								name:"假如给我四天光明",
+								data:"2020-02-10",
+								price:80,
+								num:40,
+								showHide:false,
+							}
+						]
+					}
+				},
+				computed:{
+					// 遍历获取总价
+					totalPrice(){
+						let totalPrice = null;
+						this.books.forEach((item)=>{
+							totalPrice += item.price * item.num
+						})
+						return totalPrice	
+					}
+				},
+				methods:{
+					// 删除商品
+					del(ind){
+						this.books.splice(ind,1)
+					},
+					add(index){
+						this.books[index].num +=1
+					},
+					cut(index){
+						
+						if(this.books[index].num == 1){
+							this.books[index].num = 1
+						}else{
+							this.books[index].num -= 1
+						}
+					},
+					showText(index){
+						
+						this.books[index].showHide = !this.books[index].showHide
+						// setTimeout(()=>{
+							
+						// })
+						
+						this.$nextTick(()=>{
+							this.$refs.id[index].focus()
+						})
+					},
+					blur(){
+						this.books.forEach((item)=>{
+							item.showHide = false
+						})
+					}
+				}
+				
+			})
+			
+			
+			
+		</script>
+	</body>
+</html>

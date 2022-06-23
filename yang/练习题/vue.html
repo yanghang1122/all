@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <p>{{msg}}</p>
+        <!-- <p>{{msg}}</p> -->
+        <button @click='start'>开始</button>
+        <button @click='stop'>停止</button>
+    </div>
+</body>
+
+</html>
+<script src="js/vue.min.js"></script>
+<script>
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            msg: '123456789',
+            timer: null
+        },
+        methods: {
+            start() {
+                if (this.timer != null) return;
+                this.timer = setInterval(() => {
+                    var start = this.msg.substring(0, 1);
+                    var end = this.msg.substring(1);
+                    this.msg = end + start;
+                }, 100);
+            },
+            stop() {
+                clearInterval(this.timer);
+                this.timer = null;
+            }
+        }
+    });
+</script>

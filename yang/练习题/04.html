@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<h1>{{num}}</h1>
+			<button type="button" @click="btn">开始</button>
+			<button type="button" @click="stop">暂停</button>
+		</div>
+
+		<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			new Vue({
+				el: "#app",
+				data() {
+					return {
+						num: "123456789",
+						timer:null
+					}
+				},
+				methods: {
+					btn() {
+						clearInterval(this.timer)
+						this.timer = setInterval(()=>{
+							let start = this.num.substring(0,1);
+							let end = this.num.substring(1);
+							this.num = end+start
+						},500)
+					},
+					stop(){
+						clearInterval(this.timer)
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		
+
+		
+		1. v-show 与 v-if 区别
+			“v-show”只编译一次；而“v-if”不停地销毁和创建
+			v-show更适合于日常使用，可以减少数据的渲染
+			vue-show本质就是标签display设置为none，控制隐藏
+			vue-if是动态的向DOM树内添加或者删除DOM元素
+			
+			
+			
+			
+		2. 动态绑定class的方法
+			html部分：
+			<div :class="{'active':isActive}"></div>
+			
+			js部分：判断是否绑定一个active
+			data() {
+			    return {
+			      isActive: true
+			    };
+			}
+			
+			结果渲染为：
+			<div class="active"></div>
+			
+			若要绑定多个class，需要逗号隔开就行：（这里的activeTwo加不加引号都可以，也一样都能渲染，如下）
+			<div class="activeOne" v-bind:class="{ activeTwo: isActive, 'activeThree': hasError }"></div>
+			https://blog.csdn.net/weixin_45449504/article/details/123069199
+			
+			
+			
+		
+		
+		
+		3. 计算属性和 watch 的区别
+			1、功能：computed是计算属性；watch是监听一个值的变化执行对应的回调
+			2、是否调用缓存：computed函数所依赖的属性不变的时候会调用缓存；watch每次监听的值发生变化时候都会调用回调
+			3、是否调用return：computed必须有；watch可以没有
+			4、使用场景：computed当一个属性受多个属性影响的时候；例如购物车商品结算；watch当一条数据影响多条数据的时候，例如搜索框
+			5、是否支持异步：computed函数不能有异步；watch可以
+	
+			computed计算属性
+				在调用时候不加（）
+				必须有return返回
+				
+				完整写法
+				computed:{
+					allname:{
+						get(){
+							return this.firstname + " - " + this.lastname;
+						},
+						set(e){
+							let arr = e.split("-")
+							this.firstname = arr[0]
+							this.lastname = arr[1]
+						}
+					}
+				}
+				简写
+				computed:{
+					allname(){
+						return this.firstname + " - " + this.lastname;
+					}
+				}
+				
+			watch监听	
+				watch的函数名称必须和data中的数据名一致
+				watch中的函数有两个参数，前者是newVal，后者是oldVal
+				watch中的函数是不需要调用的
+				watch只会监听数据的值是否发生改变，而不会去监听数据的地址是否发生改变，要深度监听需要配合deep：true属性使用
+				immediate:true 页面首次加载的时候做一次监听
+				可以监听计算属性 props 和data
+				
+				完整写法
+				watch: {
+					info: {
+						immediate: true,
+						deep: true,
+						handler(val, oldval) {
+							console.log("之前是：" + oldval + ",现在是：" + val)
+						},
+					},
+				}
+				简写
+				watch: {
+				   ishot(newValue,oldValue){
+				       console.log('ishot被',newValue,oldValue);
+					}
+				}
+	
+				
+		
+			
+		4. 怎样理解单向数据流
+		prop也就是父组件传过来的数据，如果我们试图通过子组件的v-model去改变这个prop，也就是试图通过子组件直接去改变父组件的数据，而不是通过发送事件的方式，这是不允许的。
+		也就是说，数据总是从父组件传到子组件，子组件没有权利修改父组件传过来的数据，只能请求父组件对原始数据的修改。
+		这实际上是为了更好的解耦，在开发中如果有多个子组件依赖与父组件的某个数据，万一子组件真的可以直接修改父组件的数据，那么一个子组件的变化将会引发所有依赖于这个数据的子组件的变化，所以vue不推荐子组件直接修改父组件的数据，直接修改prop会抛出警告
+		定义一个局部变量，并用prop的值初始化它
+	
+	
+	
+	
+		
+		
+		7. 生命周期
+		*   beforeCreate：创建前。此时，组件实例刚刚创建，还未进行数据观测和事件配置，拿不到任何数据。
+		*   created：创建完成。vue 实例已经完成了数据观测，属性和方法的计算(比如props、methods、data、computed和watch此时已经拿得到)，但尚未开始挂载。
+		*   beforeMount：挂载前。挂在开始之前被调用，相关的render函数首次被调用（虚拟DOM）。编译模板，把data里面的数据和模板生成html，完成了el和data 初始化，注意此时还没有挂在html到页面上。
+		*   mounted：挂载完成。也就是模板中的HTML渲染到HTML页面中，此时一般可以做一些ajax操作，mounted只会执行一次。
+		*   beforeUpdate：在数据更新之前被调用，发生在虚拟DOM重新渲染和打补丁之前，不会触发附加地重渲染过程。
+		*   updated：更新后。在由于数据更改导致地虚拟DOM重新渲染和打补丁之后调用，
+		*   beforeDestroy;销毁前。在实例销毁之前调用，实例仍然完全可用。（一般在这一步做一些重置的操作，比如清除掉组件中的定时器 和 监听的dom事件）
+		*   destroyed：销毁后。在实例销毁之后调用，调用后，vue实列指示的所有东西都会解绑，所有的事件监听器会被移除。
+		
+		vue3生命周期
+		beforeCreate -> 使用 setup()
+		created -> 使用 setup()
+		beforeMount -> onBeforeMount
+		mounted -> onMounted
+		beforeUpdate -> onBeforeUpdate
+		updated -> onUpdated
+		beforeDestroy -> onBeforeUnmount
+		destroyed -> onUnmounted
+		errorCaptured -> onErrorCaptured
+		
+		其他：
+		activated：在keep-alive组件激活时调用。
+		deactivated：在keep-alive组件停用时
+		
+		
+		
+		
+		
+		13. vuex
+		
+			Vuex 是⼀个专为 Vue.js 应⽤程序开发的状态管理模式。每⼀个 Vuex 应⽤的核⼼就是 store（仓库）。
+			“store” 基本上就是⼀个容器，它包含着你的应⽤中⼤部分的状态 ( state )。
+			（1）Vuex 的状态存储是响应式的。当 Vue 组件从 store 中读取状态的时候，若 store 中的状态发⽣变化，那么相应的组件也会相应地得到⾼效更新。
+			（2）改变 store 中的状态的唯⼀途径就是显式地提交 (commit) mutation。这样使得我们可以⽅便地跟踪每⼀个状态的变化。
+			主要包括以下⼏个模块：
+			State：定义了应⽤状态的数据结构，可以在这⾥设置默认的初始状态。
+			Getter：允许组件从 Store 中获取数据，mapGetters 辅助函数仅仅是将 store 中的 getter 映射到局部计算属性。
+			Mutation：是唯⼀更改 store 中状态的⽅法，且必须是同步函数。
+			Action：⽤于提交 mutation，⽽不是直接变更状态，可以包含任意异步操作。
+			Module：允许将单⼀的 Store 拆分为多个 store 且同时保存在单⼀的状态树中
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		扩展运算符。。。
+		5. keep-alive
+		6. 自定义组件的语法糖 v-model 是怎样实现的
+		11. Vue.js 2.x 双向绑定原理
+		8. 组件通信
+		9. 路由跳转
+		10. vue-router 有哪几种导航钩子
+		12. 什么是 MVVM，与 MVC 有什么区别
+		14. this.$nextTick()
+		15. vue的原理
+		16. 理解Vue中的Render渲染函数
+		17. slot插槽 几种
+		
+		
+		
+		
+	</body>
+</html>
