@@ -1346,16 +1346,3 @@ _global = (function () {
 }());
 
 
-
-// PTT 油猴
-// ==UserScript==
-// @name            PTT Michael GitHub
-// @namespace       ptt-task-assistant-for-huaweiuser.js
-// @version         1.xx
-// @description     Try to take over the world!
-// @author          Michael Gao
-// @include         https://live.pttgps.com/track/*
-// @grant           none
-// @require         https://consumer-img.huawei.com/content/dam/huawei-cbg-site/common/mkt/pdp/accessories/ptt/ptt_latest.js?v20201014a
-// ==/UserScript==
-// PTT 油猴
