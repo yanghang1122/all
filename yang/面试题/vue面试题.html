@@ -111,7 +111,7 @@
 	
 		
 		
-		7. 生命周期
+		5. 生命周期
 		*   beforeCreate：创建前。此时，组件实例刚刚创建，还未进行数据观测和事件配置，拿不到任何数据。
 		*   created：创建完成。vue 实例已经完成了数据观测，属性和方法的计算(比如props、methods、data、computed和watch此时已经拿得到)，但尚未开始挂载。
 		*   beforeMount：挂载前。挂在开始之前被调用，相关的render函数首次被调用（虚拟DOM）。编译模板，把data里面的数据和模板生成html，完成了el和data 初始化，注意此时还没有挂在html到页面上。
@@ -140,7 +140,7 @@
 		
 		
 		
-		13. vuex
+		6. vuex
 		
 			Vuex 是⼀个专为 Vue.js 应⽤程序开发的状态管理模式。每⼀个 Vuex 应⽤的核⼼就是 store（仓库）。
 			“store” 基本上就是⼀个容器，它包含着你的应⽤中⼤部分的状态 ( state )。
@@ -155,30 +155,89 @@
 		
 		
 		
+
+		
+		
+		7. <keep-alive include="缓存的是组件名 不写就是全部缓存"></keep-alive>包裹着<router-view></router-view> 不会被销毁
+		
+			include属性
+			include 包含的意思。值为字符串或正则表达式或数组。只有组件的名称与include的值相同的才会被缓存，即指定哪些被缓存，可以指定多个被缓存。
+			这里以字符串为例，指定多个组件缓存，语法是用逗号隔开。如下： <keep-alive include="home,about" >
+			
+			exclude属性
+			exclude相当于include的反义词，就是除了的意思，指定哪些组件不被缓存，用法和include类似，如下：
+			<keep-alive exclude="home,about" >
+				
+			使用了keep-alive的组件以后，组件上就会自动加上了activated钩子和deactivated钩子。
+		
+		
+		
+		
+			8.this.$nextTick(()=>{
+				
+			})
+			vue.js中this.$nextTick()就是起到了一个等待数据的作用，也就是说，将一些回调延迟，等到DOM更新之后再开始执行。简单点说，相当于setTimeout()的作用。
+			1.你改变了dom元素数据，然后你又想输出dom，那你只能等到dom更新完成之后才会实现.
+			2.通过事件改变data数据，然后输出dom，在方法里直接打印的话， 由于dom元素还没有更新， 
+			因此打印出来的还是未改变之前的值，而通过this.$nextTick()获取到的值为dom更新之后的值.
+			例子 通过文字点击切换文本然后自动获取焦点 就会用到
+		
+			
+			9.slot插槽 三种 默认插槽 具名插槽 作用域插槽
+			
+			父级给子级传递结构 带名字就是具名插槽 没有名字就是作用域插槽
+			在父级页面的子组件标签里写
+			<template slot="jiegou">
+				爹给你传的模板1
+			</template>
+			
+			子级写slot
+			<slot name="jiegou"></slot>
+			
+			
+			作用域插槽:
+			
+			如果数据在子级就要写 作用域插槽
+			在父组件可以拿到子组件的数据，通过子组件绑定数据传递给父组件。（插槽的作用域为子组件）
+			
+			子组件传递数据num
+			<slot :num="num"></slot>
+			
+			父级使用
+			<template scope="num">
+				{{num.num}}
+			</template>
+			
+			
+			
+			
+		
+		
+		10. v-model 是怎样实现的
+		
+		v-model只是一个语法糖，等于:value+@input，真正的实现靠的还是： ﻿v-bind:绑定响应式数据，触发 input 事件并传递数据 (核心和重点)
+		<input v-model="something">
+		
+		其实和下面一样的  input一般用于监听事件 只要输入的值变化了就会触发
+		<input :value="something"  @input="something = $event.target.value">
 		
 		
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		扩展运算符。。。
-		5. <keep-alive include="缓存的是组件名"></keep-alive>包裹着<router-view></router-view> 不会被销毁
-		6. 自定义组件的语法糖 v-model 是怎样实现的
 		11. Vue.js 2.x 双向绑定原理
+		
+		vue数据的双向绑定是通过数据劫持结合发布者-订阅者模式的方式来实现的。
+		其核心就是通过Object.defineProperty()方法设置set和get函数来实现数据的劫持,在数据变化时发布消息给订阅者,触发相应的监听回调。
+		也就是说数据和视图同步,数据发生变化,视图跟着变化,视图变化,数据也随之发生改变;
+		
+		
 		8. 组件通信
 		9. 路由跳转
 		10. vue-router 有哪几种导航钩子
 		12. 什么是 MVVM，与 MVC 有什么区别
-		14. this.$nextTick()
 		15. vue的原理
 		16. 理解Vue中的Render渲染函数
-		17. slot插槽 几种
 		
 		
 		
