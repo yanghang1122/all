@@ -5,7 +5,32 @@
 		<title></title>
 	</head>
 	<body>
-
+	
+		目录：
+		    1. v-show 与 v-if 区别
+			2. 动态绑定class的方法
+			3. 计算属性和 watch 的区别
+			4. 怎样理解单向数据流
+			5. 生命周期
+			6. vuex
+			7. <keep-alive></keep-alive>
+			8.this.$nextTick(()=>{})
+			9.slot插槽
+			10. v-model 是怎样实现的
+			11. Vue.js 2.x 双向绑定原理
+			12. data为什么return一个对象
+			13. 组件通信
+			14. 路由跳转传参
+			15. 什么是 MVVM，、
+			16. spa单页面 优缺点
+			17. vue-router 有哪几种导航钩子
+			18. vue父组件和子组件的生命周期执行顺序
+			19. 那些生命周期里面可以调用异步请求
+			20. 权限的操作
+			
+			
+			
+	
 
 
 
@@ -120,6 +145,10 @@
 		* updated：更新后。在由于数据更改导致地虚拟DOM重新渲染和打补丁之后调用，
 		* beforeDestroy;销毁前。在实例销毁之前调用，实例仍然完全可用。（一般在这一步做一些重置的操作，比如清除掉组件中的定时器 和 监听的dom事件）
 		* destroyed：销毁后。在实例销毁之后调用，调用后，vue实列指示的所有东西都会解绑，所有的事件监听器会被移除。
+		
+		
+		第一次页面加载时会触发 beforeCreate, created, beforeMount, mounted 这几个钩子
+		
 
 		vue3生命周期
 		beforeCreate -> 使用 setup()
@@ -160,15 +189,15 @@
 
 		7. <keep-alive include="缓存的是组件名 不写就是全部缓存"></keep-alive>包裹着<router-view></router-view> 不会被销毁
 
-		include属性
-		include 包含的意思。值为字符串或正则表达式或数组。只有组件的名称与include的值相同的才会被缓存，即指定哪些被缓存，可以指定多个被缓存。
-		这里以字符串为例，指定多个组件缓存，语法是用逗号隔开。如下： <keep-alive include="home,about">
+			include属性
+			include 包含的意思。值为字符串或正则表达式或数组。只有组件的名称与include的值相同的才会被缓存，即指定哪些被缓存，可以指定多个被缓存。
+			这里以字符串为例，指定多个组件缓存，语法是用逗号隔开。如下： <keep-alive include="home,about">
 
 			exclude属性
 			exclude相当于include的反义词，就是除了的意思，指定哪些组件不被缓存，用法和include类似，如下：
 			<keep-alive exclude="home,about">
 
-				使用了keep-alive的组件以后，组件上就会自动加上了activated钩子和deactivated钩子。
+			使用了keep-alive的组件以后，组件上就会自动加上了activated钩子和deactivated钩子。
 
 
 
@@ -234,15 +263,15 @@
 				let obj = {}
 				// 给obj的name属性设置两个方法get&set
 				Object.defineProperty(obj,'name',{
-				set:function (value){ //value就是给name赋值的结果
-				console.log('触发了set');
-				this._name=value//保存这个值 这里不能直接用name,因为会触发set
+					set:function (value){ //value就是给name赋值的结果
+					console.log('触发了set');
+					this._name=value//保存这个值 这里不能直接用name,因为会触发set
 				},
-				get:function(){
-				console.log('触发了get');
-				// 将保存的值返回回来
-					return this._name
-				}
+					get:function(){
+					console.log('触发了get');
+					// 将保存的值返回回来
+						return this._name
+					}
 				})
 
 
@@ -363,7 +392,59 @@
 				
 			
 				
-				14. 路由跳转
+				14. 路由跳转传参
+				
+				 第一种方法 页面刷新数据不会丢失
+				methods：{
+				  insurance(id) {
+				        this.$router.push({
+				          path: `/particulars/${id}`,
+				        })
+				}
+				需要对应路由配置如下：
+					{
+				     path: '/particulars/:id',
+				     name: 'particulars',
+				     component: particulars
+				   }
+				
+				
+				第二种方法 页面刷新数据会丢失
+				通过路由属性中的name来确定匹配的路由，通过params来传递参数。
+				methods：{
+				  insurance(id) {
+				       this.$router.push({
+				          name: 'particulars',
+				          params: {
+				            id: id
+				          }
+				        })
+				  }
+				对应路由配置: 注意这里不能使用:/id来传递参数了，因为组件中，已经使用params来携带参数了。
+				 {
+				     path: '/particulars',
+				     name: 'particulars',
+				     component: particulars
+				   }
+				
+				
+				第三种方法
+				使用path来匹配路由，然后通过query来传递参数
+				这种情况下 query传递的参数会显示在url后面?id=？
+				methods：{
+				  insurance(id) {
+				        this.$router.push({
+				          path: '/particulars',
+				          query: {
+				            id: id
+				          }
+				        })
+				  }
+					{
+				     path: '/particulars',
+				     name: 'particulars',
+				     component: particulars
+				   }
 				
 				https://blog.csdn.net/m0_46293001/article/details/123099883
 				
@@ -371,18 +452,127 @@
 				
 				
 				
+				15. 什么是 MVVM，、
+				m就是model 
+				v就是view 
+				vm是 viewmodel 通过数据来驱动视图层的显示
+				
+				
+				
+				16. spa单页面 优缺点
+				它的优点有三点：
+				第一点：用户体验好、快，内容的改变不需要重新加载整个页面，避免了不必要的跳转和重复渲染；
+				第二点：基于上面一点，SPA 对服务器的压力小；
+				第三点：前后端职责分离，架构清晰，前端进行交互逻辑，后端负责数据处理；
+				
+				它的缺点也有三点：
+				第一点：初次加载耗时多，为实现单页 Web 应用功能及显示效果，需要在加载页面的时候将 JavaScript、CSS 统一加载，部分页面按需加载；
+				第二点：前进后退路由管理，由于单页应用在一个页面中显示所有的内容，所以不能使用浏览器的前进后退功能，所有的页面切换需要自己建立堆栈管理；
+				第三点：SEO 难度较大，由于所有的内容都在一个页面中动态替换显示，所以在 SEO 上其有着天然的弱势。
 				
 				
 				
 				
 				
-				10. vue-router 有哪几种导航钩子
-				12. 什么是 MVVM，与 MVC 有什么区别
-				15. vue的原理
-				16. 理解Vue中的Render渲染函数
-				路由守卫
-				权限
-
+				
+				
+				17. vue-router 有哪几种导航钩子
+				
+				1、全局导航钩子
+				router.beforeEach((to, from, next) => {
+						to: 即将要进入的目标路由对象
+						from: 当前正要离开的路由，也是一个路由对象
+						next: 一定要调用该方法来resolve这个钩子
+				})
+				router.beforeResolve : 在导航被确认之前，同时在所有组件内守卫和异步路由组件被解析之后，该钩子函数就被调用
+				router.afterEach : 路由改变后的钩子
+				
+				
+				2、路由独享钩子
+				可以在路由配置上直接定义 beforeEnter 路由独享守卫只有前置没有后置
+				cont router = new Router({
+				   routes: [
+				       {
+				           path: '/file',
+				           component: File,
+				           beforeEnter: (to, from ,next) => {
+				               // do someting
+				           }
+				       }
+				   ]
+				});
+				
+				3、组件内的导航钩子
+				有三种：
+				beforeRouteEnter 在进入当前组件对应的路由前调用
+				beforeRouteUpdate 在当前路由改变，但是该组件被复用时调用
+				beforeRouteLeave 在离开当前组件对应的路由前调用
+				export default {
+				    data() { ... },
+				    beforeRouteEnter(to, from, next) {
+				        ... ...
+				    }
+				}
+				
+				
+				
+				
+				
+				
+				
+				18. vue父组件和子组件的生命周期执行顺序
+				
+				渲染过程：父组件挂载完成一定是等子组件都挂载完成后，才算是父组件挂载完，所以父组件的mounted在子组件mouted之后。
+				父beforeCreate -> 父created -> 父beforeMount -> 子beforeCreate -> 子created -> 子beforeMount -> 子mounted -> 父mounted
+				
+				子组件更新过程：
+				影响到父组件： 父beforeUpdate -> 子beforeUpdate->子updated -> 父updated
+				不影响父组件： 子beforeUpdate -> 子updated
+				
+				父组件更新过程：
+				影响到子组件： 父beforeUpdate -> 子beforeUpdate->子updated -> 父updated
+				不影响子组件： 父beforeUpdate -> 父updated
+				销毁过程：父beforeDestroy -> 子beforeDestroy -> 子destroyed -> 父destroyed
+				看起来很多好像很难记忆，其实只要理解了，不管是哪种情况，都一定是父组件等待子组件完成后，才会执行自己对应完成的钩子，就可以很容易记住
+				
+				
+				
+				
+				
+				
+				
+				
+				19. 那些生命周期里面可以调用异步请求
+				
+				vue中异步请求一般可以在created和mounted阶段中调用异步请求,
+				其中在created中调用异步请求的优势是请求时间比较早,页面的loading时间相对较短,可以提升用户体验;
+				而在mounted中调用异步请求的优势是页面已经渲染完成,需要对DOM进行操作,则需在mounted阶段发起异步请求。
+				
+				
+				
+				
+				
+				
+				
+				
+				20. 权限的操作
+				登录的时候 向服务器发请求 获取不同角色的权限信息  根据服务器返回的数据 动态的设置路由 根据不同的角色展示不同的菜单
+				首先拆分常量路由 就是不管是什么角色都能看见的路由 例子：登录
+				异步路由：根据不同角色筛选出的路由 
+				然后合并路由
+				
+				
+				21.vue事件修饰符
+				<!-- prevent阻止默认行为 -->
+				<a href="www.baidu.com" @click.prevent="showinfo">超链接</a>
+				<!-- stop阻止冒泡 -->
+				<a href="www.baidu.com" @click.stop="showinfo">超链接</a>
+				<!-- 只能点击一次 -->
+				<a href="javascript:;" @click.once="showinfo">超链接</a>
+				
+				
+				
+				
 
 
 
