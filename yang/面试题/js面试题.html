@@ -17,59 +17,83 @@
 		
 		
 		
-		2.js中的基础数据类型有哪几种? 
-		
-		Javascript数据类型分为基本数据类型与引用数据类型，其中基本数据类型为：
-		字符串（String）、数字(Number)、布尔(Boolean)、、空值（Null）、未定义（Undefined）、symbol。
-		引用数据，类型为对象(Object)，其中数组(Array)、函数（function）是一种特殊的对象。
-		
-		
-		
-		
-		
-		
-		3.input事件和change事件的区别
-		
-		input事件：输输入框内容发生改变时就会触发
-		change事件：输入框内容发生改变，并且输入框失去焦点时触发。
+			2.js中的基础数据类型有哪几种? 
+			
+			Javascript数据类型分为基本数据类型与引用数据类型，其中基本数据类型为：
+			字符串（String）、数字(Number)、布尔(Boolean)、、空值（Null）、未定义（Undefined）、symbol。
+			引用数据，类型为对象(Object)，其中数组(Array)、函数（function）是一种特殊的对象。
 		
 		
 		
 		
 		
 		
-		深拷贝，浅拷贝 | 解构赋值
-		https://www.cnblogs.com/blessYou/p/13038566.html
-		https://www.runoob.com/w3cnote/deconstruction-assignment.html
-		https://www.cnblogs.com/zhangyezi/p/13755119.html
+			3.input事件和change事件的区别
+			
+			input事件：输输入框内容发生改变时就会触发
+			change事件：输入框内容发生改变，并且输入框失去焦点时触发。
 		
 		
 		
 		
-				filter
-				//rest参数 ...agrs
+			4. 变量 函数提升
+			
+			console.log(a); //undefined
+			var a = 6; 
+			
+			js引擎将函数名视同变量名，所以采用function命令声明函数时，整个函数会像变量声明一样，被提升到到代码头部
+			只有function声明的函数会发生函数名提升，而如果通过赋值语句写的函数则不会。
+			
+			fn(); //a
+			function fn (){
+				console.log("a");
+			}
+		
+			
+			5. 如何优化内存泄漏?
+			
+			  全局变量先声明在使用
+			  避免过多使用闭包。
+			  注意清除定时器和事件监听器。
+		
+		
+			5. 函数默认参数 
+			
+			
+		
+		
+		
+				
+				
 				//扩展运算符
 				迭代器
 				生成器
 				iterator接口
 				then 方法
 				js继承
-				变量 函数提升
+				
 				js同源策略
 				防抖节流 
-				函数默认参数
-				深拷贝浅拷贝
-				数组的方法 那些方法改变原数组
+				this的指向
+				
+				数组的方法 那些方法改变原数组 filter
 				math. 随机数
 				构造函数和函数的区别 实例化对象是什么意思
 				原型链 显示原型和隐式原型 
 				闭包
-				session cookies
+				session cookies token
 				跨域问题
 				递归
 				concat
+				深拷贝，浅拷贝 | 解构赋值
+				https://www.cnblogs.com/blessYou/p/13038566.html
+				https://www.runoob.com/w3cnote/deconstruction-assignment.html
+				https://www.cnblogs.com/zhangyezi/p/13755119.html
 		
 		
+		https://blog.csdn.net/m0_65450343/article/details/124658549
+		https://blog.csdn.net/Amrice_/article/details/123086495
+		https://wenku.baidu.com/view/c09d3d42834d2b160b4e767f5acfa1c7aa008282.html
 		
 		
 		
