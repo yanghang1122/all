@@ -50,44 +50,126 @@
 			}
 		
 			
-			5. 如何优化内存泄漏?
 			
-			  全局变量先声明在使用
-			  避免过多使用闭包。
-			  注意清除定时器和事件监听器。
 		
 		
 			5. 函数默认参数 
 			
+			function fn(param = 'hello') {
+			    console.log(param);
+			}
+			方法被调用时，如果没有给参数赋值，那就是用默认值；
+			方法被调用时，如果给参数赋值了新的值，那就用新的值。
+			默认值的后面，不能再有没有默认值的变量。比如(a,b,c)这三个参数，如果我给 b 设置了默认值，那么就一定要给 c 设置默认值。
+			
 			
 		
-		
-		
+			
+			
+			
+			
+			6. 解构赋值
+			
+			1.解构对象
+			const a = {
+			      name: 'name',
+			      age: 18,
+			      marriage: false,
+			    }
+			let { name, age, marriage} = a;
+			console.log(name, age, marriage)  打印信息：name 18 false
+			
+			2.解构数组
+			let arr = [1,2,3];
+			let [a,b,c] = arr;
+			console.log(a); // 1
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			7. 深拷贝，浅拷贝
+			
+			拷贝的时候并没有给b创造独立的内存，只是把a指向数据的 指针 拷贝给了b！
+			
+			原理： 用JSON.stringify将对象转成JSON字符串，再用JSON.parse()把字符串解析成对象，一去一来，新的对象产生了，而且对象会开辟新的栈，实现深拷贝。
+			这种方法虽然可以实现数组或对象深拷贝，但不能处理函数。
+			这是因为 JSON.stringify() 方法是将一个JavaScript值(对象或者数组)转换为一个 JSON字符串，不能接受函数。
+			let objnew = JSON.parse(JSON.stringify(obj))
+			
+			//递归来实现深拷贝
+			function deepClone(obj) {
+				var newObj = obj instanceof Array ? [] : {};
+				if (typeof obj !== 'object') {
+					return obj;
+				} else {
+					for (var i in obj) {
+						newObj[i] = typeof obj[i] === 'object' ? deepClone(obj[i]) : obj[i];
+					}
+				}
+				return newObj;
+			}
+			var objnew = deepClone(obj)
+			console.log(objnew)
 				
 				
-				//扩展运算符
+				
+				
+				
+				
+				
+			8. 扩展运算符
+			
+			let a = ["Bill","Mary","Lucy"];
+			let b = [21,24,27];
+			let c = [...a,...b];
+			console.log(c);  // [ 'Bill', 'Mary', 'Lucy', 21, 24, 27 ]
+			
+			
+			
+			
+			
+			9. this的指向
+			https://www.cnblogs.com/chengxs/p/8679313.html
+			
+			
+			
+			
+			
+			
+			
+			
+			
 				迭代器
 				生成器
 				iterator接口
-				then 方法
+				promise async await then 方法
 				js继承
 				
-				js同源策略
 				防抖节流 
-				this的指向
 				
-				数组的方法 那些方法改变原数组 filter
+				
+				数组的方法 那些方法改变原数组 filter  concat 改7个 
 				math. 随机数
 				构造函数和函数的区别 实例化对象是什么意思
 				原型链 显示原型和隐式原型 
 				闭包
-				session cookies token
+				session cookies token 
 				跨域问题
 				递归
-				concat
-				深拷贝，浅拷贝 | 解构赋值
-				https://www.cnblogs.com/blessYou/p/13038566.html
-				https://www.cnblogs.com/zhangyezi/p/13755119.html
+				5. 如何优化内存泄漏?
+				
+				  全局变量先声明在使用
+				  避免过多使用闭包。
+				  注意清除定时器和事件监听器。
+				  
+				  
+				
 		
 		
 		https://blog.csdn.net/m0_65450343/article/details/124658549
