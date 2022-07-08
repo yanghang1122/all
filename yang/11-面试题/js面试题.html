@@ -135,20 +135,13 @@
 			
 			
 			
-			9. 类数组
+			9. 类数组是什么和数组有什么区别
 			
-			console.log(Array.isArray())
-			
-			
-			Array.from(item).forEach((item)=>{
-			    console.log(item)
-			})
-			
-			
-			
-			
-			9. this的指向
-			https://www.cnblogs.com/chengxs/p/8679313.html
+			相同点:都具有length属性和索引元素 
+			不同点:类数组没有任何Array属性和Array方法(比如push)”
+			let arr = document.querySelectorAll("div") 取到的是一个类数组 
+			console.log(arr instanceof Array) 返回false
+			Array.isArray(arr) 判断是不是数组返回false
 			
 			
 			
@@ -158,28 +151,127 @@
 			
 			
 			
-				迭代器
-				生成器
-				iterator接口
+			
+			10. this的指向和 call与apply和bind区别
+			https://blog.csdn.net/zwt13976124194/article/details/123384413
+			
+			1. 在普通函数中调用就是window
+			window.username='程新松'
+			function fn(){
+			    console.log(this.username);
+			}
+			fn(); //程新松
+			
+		
+			
+			2. 对象里的this 哪个函数调用，this指向哪里。
+			
+			指向调用函数的那个对象 例如arr调用了a这个函数 this就是arr
+			var arr = {
+				b: 'ddd',
+				a() {
+					console.log(this.b)
+				},	
+			}
+			arr.a();  //ddd
+			
+			
+			
+			3.箭头函数调用
+			let obj={
+			    name:'程新松',
+			    fn:function(){
+			        setTimeout(function(){console.log(this.name)})
+			    }
+			}
+			obj.fn();
+			不难发现，虽然 fn() 里面的 this 是指向 obj ，但是，传给 setTimeout 的是普通函数，
+			this 指向是 window ， window 下面没有 name ，所以这里输出 underfind 。
+			
+			如果换成箭头函数
+			这次输出 程新松 是因为，传给 setTimeout 的是箭头函数，然后箭头函数里面没有 this ，
+			所以要向上层作用域查找，在这个例子上， setTimeout 的上层作用域是 fn 。而 fn 里面的 this 指向 obj ，
+			所以 setTimeout 里面的箭头函数的 this ，指向 obj 。所以输出 程新松。
+			
+			
+			
+			
+			4. call与apply和bind
+			var a = {
+			    user:"用户a",
+			    fn:function(){
+			        console.log(this.user); 
+			    }
+			}
+			var b = {
+				   user:"用户b"
+			};
+			
+			a.fn.call(b);  //用户b
+			把a对象里面的fn函数的指向 改成了b 
+			 
+			 a.fn.call(b,1,2); call里面还可以传别的参数 
+			 a.fn.call(b,[1,2]);  apply其他参数必须是一个数组
+			
+			
+			
+			
+			
+			
+			11. arguments
+			arguments 是一个对应于传递给函数的参数的类数组对象 里面包含了函数所有的实参
+			
+			
+			
+			
+			
+			
+			12. 防抖节流 
+			https://www.lodashjs.com/
+			函数防抖： 防抖就是回城被打断就要重来 
+			将几次操作合并为一次操作进行。原理是维护一个定时器，规定在延迟时间后触发函数，只有最后一次操作能被触发。
+			防抖:search联想搜索，用户在不断输入内容的时候，用防抖来节约请求资源。window触发resize时候，不断调整浏览器窗口大小会不断的触发这个事件，用防抖让其只触发一次。
+			
+			
+			函数节流： 节流就是cd  cd没好 用不了技能
+			使得一定时间内只触发一次函数。原理是通过判断是否到达一定时间来触发函数。
+			节流：鼠标不断点击（mousedown）触发，让其单位时间内只触发一次。
+			
+			
+			
+			13. 闭包
+			
+			
+			
+			
+			5. 如何优化内存泄漏?
+			
+			  全局变量先声明在使用
+			  避免过多使用闭包。
+			  注意清除定时器和事件监听器。
+			  
+			  
+			  
+			构造函数和函数的区别 实例化对象是什么意思
+			原型链 显示原型和隐式原型 
+			
+			
+			
+			
+			
+			
+			
 				promise async await then 方法
 				js继承
 				
-				防抖节流 
-				
-				
 				数组的方法 那些方法改变原数组 filter  concat 改7个 
 				math. 随机数
-				构造函数和函数的区别 实例化对象是什么意思
-				原型链 显示原型和隐式原型 
-				闭包
+				
+				
 				session cookies token 
 				跨域问题
 				递归
-				5. 如何优化内存泄漏?
 				
-				  全局变量先声明在使用
-				  避免过多使用闭包。
-				  注意清除定时器和事件监听器。
 				  
 				  //阻止冒泡
 				  e.stopPropagation();
@@ -216,164 +308,6 @@
 		
 		
 		
-		
-		//let 特性
-			//1. 不能重复声明
-			//2. 块级作用域 for if{}
-			//3. 不存在变量提升
-			//遍历练习用let
-			/*window.onload = function(){
-				let items = document.querySelectorAll(".item");
-				for(let i=0;i<items.length;i++){
-					items[i].onclick = function(){
-						//this.style.backgroundColor = "white";
-						items[i].style.backgroundColor = "white";
-					}
-				}	
-			}*/
-			
-			
-			
-			//const特性 
-			// 1. 必须附初始值_要不报错
-			// 2. 全大写 
-			// 3. 定义的之不能修改_要不报错
-			// 4. 也是块级作用域
-			// 5. 对数组和对象进行修改 不算修改 不会报错 因为地址值没有改变
-			/*const BTN = ["aaa","bbb"]
-			BTN.push("ccc");//不会报错
-			BTN = 100;//会报错*/
-			
-			
-			
-			
-			
-			
-			//解构赋值
-			/*let fun = {
-				name:"赵本山",
-				xiaopin:function(){
-					console.log("昨天 今天 明天");
-				}
-			}
-			let {xiaopin} = fun;
-			xiaopin();*/
-			
-			
-			
-			
-			
-			
-			//模板字符串``
-			/*1. 字符串拼接用${}
-			2. 可以换行
-			3. 用esc下面的反引号*/
-			/*let aa = `哈哈`;
-			let bb = `${aa}嘿
-			嘿`;
-			console.log(bb);*/
-			
-			
-			
-			
-			
-			
-			
-			//es6允许在大括号里面写入变量和函数 作为对象的属性和方法
-			/*let aaa = "aaa";
-			function bbb(){
-				console.log("bbb");
-			}
-			var ccc = {
-				//等同于aaa:aaa,
-				aaa,
-				bbb,
-				//等同于ddd:function(){}
-				ddd(){
-					console.log("ddd")
-				}
-			}
-			ccc.ddd();*/
-			
-			
-			
-			
-			
-			
-			
-			//箭头函数
-			/*
-			1. this是静态的 始终指向函数声明时所在作用域下的this的值
-			2. 不能作为构造函数进行实例化对象
-			3. 不能使用arguments_打印实参用的
-			4. 箭头函数简写 形参只有一个的时候 形参的小括号可以不写
-				let aaa = a =>{
-					return a+a;
-				}
-				console.log(aaa(1))
-				
-			5. 当函数体只有一条执行语句的时候 可以省略花括号 return也必须省略
-				此时语句的执行结果就是函数的返回值
-				let aaa = a => a+a;
-				console.log(aaa(1))
-			*/
-			/*let aaa = (a) => {
-				return a+a;
-			};
-			console.log(aaa(1))*/
-			
-			
-			
-			
-			//es6新增原始数据类型 symbol
-			// let s = Symbol("haha");
-			// let s1 = Symbol("haha")
-			// console.log(s == s1)
-			
-			
-			//尚硅谷晓飞老师的promise
-			/*let p = new Promise((resolve,reject)=>{
-				setTimeout(()=>{
-					resolve("用户数据")
-				},1000)
-			})
-			
-		let result = p.then(value=>{
-				console.log(value)
-			},reason=>{
-				console.warn(reason)
-			})
-			
-			console.log(result)*/
-			
-			
-			//set 集合 会自动去重
-			/*let s = new Set();
-			let s2 = new Set(["1","2","3","4","4"]);
-			//新增
-			s2.add("6")
-			//查看数量
-			console.log(s2.size)
-			//遍历
-			for(let v of s2){
-				console.log(v)
-			}
-			//删除
-			s2.delete("1")
-			//清空
-			s2.clear();
-			//判断有没有
-			console.log(s2.has("3"))
-			console.log(s2)*/
-			
-			
-			
-			
-			//数组去重
-			 /*let arr = [1,2,3,4,5,5,3,6];
-			 //使用扩展运算符
-			let arr1 = [...new Set(arr)];
-			 console.log(arr1)*/
 		
 	</body>
 </html>

@@ -7,12 +7,41 @@
 	<body>
 		
 		
-		<script type="text/javascript">
-			
-			
-			
-			
-			
-		</script>
+		<body>
+			<!-- 防抖 -->
+			<h2 id="demo">hello</h2>
+			<button id="btn">点我</button>
+		
+			<script type="text/javascript">
+				var btn = document.getElementById('btn');
+		
+				btn.addEventListener('click', debounce(changeColor), false);
+		
+				var flag = true
+		
+				function changeColor() {
+					if (flag) {
+						document.getElementById('demo').style.color = 'pink'
+					} else {
+						document.getElementById('demo').style.color = 'blue'
+					}
+					flag = !flag
+				}
+		
+				function debounce(fn) {
+					let t = null
+					return function() {
+						//如果定时器存在就清除掉
+						if (t) {
+							clearTimeout(t)
+						}
+						//不然就创建新的定时器
+						t = setTimeout(function() {
+							fn()
+						}, 1000)
+					}
+				}
+			</script>
+		</body>
 	</body>
 </html>
