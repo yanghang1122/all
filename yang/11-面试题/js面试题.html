@@ -241,10 +241,33 @@
 			
 			13. 闭包
 			
+			//什么是闭包
+			//闭包是嵌套的内部函数
+			
+			//产生闭包的条件
+			//函数嵌套 内部函数引用了外部函数的变量 并且执行外部函数
+			
+			//闭包的作用
+			//使函数内部的变量在函数执行完 没有消失 仍然存在
+			//让函数外部 可以操作函数内部的数据
+			
+			function fun1() {         //外部函数fun1
+				var a = 1;           //外部函数里有个变量 a=1
+				function fun2() {    //内部函数 fun2
+					console.log(a--) //内部函数里面用了外部函数的变量并且减1
+				}
+				return fun2           //外部函数的返回值是未执行的内部函数
+			}
+			
+			
+			var aaa = fun1(); //调用外部函数 获取外部函数的返回值并且存在aaa  此时的aaa就是内部函数 
+			aaa(); //第一次调用内部函数
+			aaa(); //第二次调用内部函数
 			
 			
 			
-			5. 如何优化内存泄漏?
+			
+			14. 如何优化内存泄漏?
 			
 			  全局变量先声明在使用
 			  避免过多使用闭包。
@@ -252,8 +275,12 @@
 			  
 			  
 			  
-			构造函数和函数的区别 实例化对象是什么意思
-			原型链 显示原型和隐式原型 
+			15. 构造函数和普通函数的区别 
+			
+				构造函数习惯上首字母大写
+				构造函数用来新建实例对象
+				a. 普通函数的调用方式：直接调用 person();
+				b.构造函数的调用方式：需要使用new关键字来调用 new Person();
 			
 			
 			
@@ -261,16 +288,104 @@
 			
 			
 			
-				promise async await then 方法
-				js继承
+			16. 原型链 显示原型和隐式原型 
+			
+				1、所有的引用类型（数组、函数、对象）可以自由扩展属性（除null以外）。
+				2、所有的引用类型都有一个’_ _ proto_ _'属性(也叫隐式原型，它是一个普通的对象)。
+				3、所有的函数都有一个’prototype’属性(这也叫显式原型，它也是一个普通的对象)。
+				4、所有引用类型，它的’_ _ proto_ _'属性指向它的构造函数的’prototype’属性。
+				5、当试图得到一个对象的属性时，如果这个对象本身不存在这个属性，那么就会去它的’_ _ proto_ _'属性(也就是它的构造函数的’prototype’属性)中去寻找。
+		
+			
+				// 定义一个构造函数
+				function Person(name,age){
+					this.name = name;
+					this.age = age;
+				}
+				
+				// 创建一个构造函数的实例对象
+				let person = new Person("张三",18)
+				
+				//构造函数的显示原型属性 拿到原型对象
+				// console.log(Person.prototype) 
+				
+				//实例身上的隐式原型属性 拿到原型对象
+				// console.log(person.__proto__)
+				
+				//通过显示原型属性往原型对象身上加一个x值是99
+				Person.prototype.x = 99
+				//person的原型对象身上就会有x这个属性
+				console.log(person)
+			
+			
+			
+				17. promise async await
+					
+					1. promise是什么？
+					Promise是JS中进行异步编程的新解决方案(ES6规范)
+					Promise通过链式调用的解决方案，解决回调地狱问题
+					
+					2. Promise的状态有哪些?
+					pendding(初始化状态，表示未发生改变)
+					fulfilled(成功的状态）
+					reject（失败的状态
+					
+					3. promise的状态和结果
+					[[PromiseState]]: "fulfilled"
+					[[PromiseResult]]: undefined
+
+					
+					4. 如何改变Promise状态?
+					调用resolve或reject，每个Promise的状态只能修改一次
+					
+					5. 如何指定回调?
+					首先获取promise实例对象，调用实例对象身上的.then()函数，并传入两个函数，
+					第一个是成功的回调(resolve调用时执行)，第二个是失败的的回调(reject调用时执行)。 
+					then可以只指定成功的回调，如果只指定失败的回调的话使用.catch(()=>{})其中传入失败的回调
+					
+					6. 如何执行回调?promise状态改变,即resolve或reject调用的时候自动执行
+					
+					Promise.resolve(value) 如果value是一个非Promise对象，则函数返回值是一个Promise对象，结果为value
+					如果value是一个Promise对象，则返回值就是该Promise对象
+					
+					Promise.reject(reason) 返回一个失败的Promise对象，结果为reason
+					
+					Promise.all(promises) 返回一个新的promise，promises是一个包含多个promise的数组，
+					当所有promise状态都为resolved，返回的promise状态才为resolved，状态为rejected
+					
+					Promise.race（promises） 返回一个新的promise，promises是一个包含多个promise的数组，
+					只要有其中一个promise先改变状态，其状态就是返回的promise的状态，其结果就是返回的promise的结果。
+					
+					// 1.被async修饰过的函数 他的返回值就会是一个promise对象
+					// 如果没有返回值就是fulfilled  
+					// 如果返回的是一个字符串或者数字 这个函数的返回值就是promise对象 状态是成功 值就是这个函数的返回值
+					// 如果返回的是一个promise对象 这个函数的返回值就是promise对象 状态是返回promise对象的状态 值就是这个是返回promise对象的值 throw也是一样
+					
+					// await 就是对右侧promise对象结果的一个获取
+					// 如果右侧是一个数字或者字符串 结果就是对应的数字或字符串
+					// 如果右侧是一个成功的promise对象 那么结果就是这个右侧promise对象的结果
+					// 如果右侧是一个失败的promise对象 需要用try catch 里面的catch 来捕获这个promise对象失败的结果值
+					
+				
+				
+				18. session cookies token 
+				
+				
+				
+				
+				跨域问题
+				递归
+				
+				
+				
+				
 				
 				数组的方法 那些方法改变原数组 filter  concat 改7个 
 				math. 随机数
 				
 				
-				session cookies token 
-				跨域问题
-				递归
+				
+				
 				
 				  
 				  //阻止冒泡
