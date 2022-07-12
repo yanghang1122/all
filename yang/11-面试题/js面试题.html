@@ -368,7 +368,50 @@
 					
 				
 				
-				18. session cookies token 
+				
+				
+				
+				
+				18. localStorage与sessionStorage cookies token 
+				
+				localStorage语法：
+				* 存数据：localStorage.setItem(‘属性名’,属性值）
+				* 取数据：localStorage.getItem（‘属性名’）
+				* 删数据：localStorage.removeItem('属性名‘）
+				* 清空数据：localStorage.clear(）
+				
+				sessionStorage语法 :
+				* 存数据：  sessionStorage.setItem('属性名',属性值)
+				* 取数据:   sessionStorage.getItem('属性名')
+				* 删数据:   sessionStorage.removeItem('属性名')
+				* 清空数据: sessionStorage.clear()
+				
+				localStorage和sessionStorage的区别？
+				相同点： 作用相同，都是存储数据
+				不同点：存储方式不同
+					localStorage   : 硬盘存储（永久存储）
+					* 应用场景： 免登录
+					sessionStorage : 内存存储 （临时存储）
+					* 应用场景： 页面间传值
+				
+				.json语法 ？ ： 本质是字符串
+				json转js :  let js对象 = JSON.parse(json格式)
+				js转json :  let json格式 = JSON.stringify(js对象)
+				
+				
+				
+				token令牌
+				当你们前后端分离之后，不使用session来保存状态的时候，就需要使用token来标识当前用户。
+				通常是登录接口成功的时候会返回一个token给你，然后每次请求的时候在请求头中带上这个字段，
+				后端就能根据这个字段知道是那个用户发起的请求了；如果你们还在使用session，那么你也就不用管什么token了
+				
+				
+				
+				cookies是什么
+				浏览器存储 存的东西少 
+				Cookie 是服务器保存在浏览器的一小段文本信息。浏览器每次向服务器发出请求，就会自动附上这段信息。
+				
+				
 				
 				
 				
