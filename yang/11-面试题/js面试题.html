@@ -416,8 +416,41 @@
 				
 				
 				
-				跨域问题
-				递归
+				19. 跨域问题
+				
+				浏览器的同源策略，规定当域名、端口、协议有一个不同，即为跨域。
+				
+				vue.config.js 里配置跨域
+				//关闭校验工具
+				module.exports = {
+				    lintOnSave: false,
+					//代理跨域
+					devServer: {
+					    proxy: {
+					        '/api': {
+					            target: "http://gmall-h5-api.atguigu.cn",
+					        }
+					    },
+					},
+				}
+				
+				
+				
+				
+				
+				
+				
+				20. 递归
+				
+				function fy(n) {
+				    if (n == 1) {
+				        return 1
+				    } else {
+				        return n + fy(n - 1)
+				    }
+						
+				}
+				console.log(fy(5));
 				
 				
 				
