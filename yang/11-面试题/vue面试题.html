@@ -33,10 +33,8 @@
 			24. v-for和v-if优先级
 			25. route和router的区别
 			26. props 三种接收方式
-			27. vue原型
-			28. _data和data的关系
-			29. 为什么操作下标不可以实现响应式
-			30.vue.use 干了什么事
+			27. vue.use 干了什么事
+			28. 为什么操作下标不可以实现响应式
 			
 			
 	
@@ -622,7 +620,67 @@
 				router就是跳转
 				
 
-
+				
+				
+				
+				
+				26. props 三种接收方式
+				
+				    1. props:['title','content','aouthor','views','msg','time']//简单接收
+				
+					2. //接收的同时对数据进行类型限制
+						 props:{
+							name:String,
+							age:Number,
+							sex:String
+						} 
+				
+					3. //接收的同时对数据：进行类型限制+默认值的指定+必要性的限制
+					props:{
+						name:{
+							type:String, //name的类型是字符串
+							required:true, //name是必要的
+						},
+						age:{
+							type:Number,
+							default:99 //默认值
+						},
+						sex:{
+							type:String,
+							required:true
+						}
+					}
+				
+				
+				
+				
+				27. vue.use 干了什么事
+				
+					1. 首先 Vue.use 本身是一个函数
+					vue.use()：用于注册插件，当传入一个插件时，vue.use会自动去找暴露出来的install方法，
+					之后会去把install中全局的方法，实例，公用的组件、和自定义指令绑定到vue实例上，供后续使用。
+					总结：use用于将插件内容绑定到vue实例上
+				
+				
+				
+				
+				
+				28. 为什么操作下标不可以实现响应式
+				
+				arr[index] = val 不是响应式的
+				
+				1、删除数组最后一位元素：pop()
+				2、向数组最后面添加元素：push() 。注意：可以添加多个元素，比如 letters.push( ‘a’ , ‘b’ )
+				3、删除数组第一位元素：shift()
+				4、向数组最前面添加元素：unshift()。注意：可以添加多个元素，比如 letters.unshift( ‘a’ , ‘b’ )
+				5、删除（或插入或替换）数组元素：splice()
+				比如删除元素：splice(2) 是 从第二位开始删除后面所有元素；
+				比如删除元素：splice(2,3) 是 从第二位开始删除3个元素；
+				比如插入元素：splice(2,0,‘j’,‘k’) 是 在第二位开始插入元素 ‘j’,‘k’；
+				比如替换元素：splice(2,3,‘m’,‘n’,‘p’) 是 在第二位开始替换3个元素为’m’,‘n’,‘p’；
+				6、数组排序：sort()；
+				7、数组内容反转：reverse()；
+				
 
 
 
