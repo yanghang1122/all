@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+
+			#from {
+				margin: 10vw auto 0;
+				width: 50vw;
+				box-shadow: 0 0 20px 0px grey;
+				background-color: aliceblue;
+				position: relative;
+			}
+
+			input {
+				display: block;
+				width: 100%;
+				height: 5vw;
+				border: none;
+				outline: none;
+				/* box-shadow: 0 0 5px 0px grey; */
+				border-bottom: 1px solid #000;
+				margin-bottom: 1.5vw;
+			}
+
+			[type=button] {
+				cursor: pointer;
+			}
+
+			[placeholder="请选择城市"] {
+				cursor: pointer;
+			}
+
+			.store-list {
+				position: absolute;
+				background-color: aliceblue;
+				width: 100%;
+			}
+
+			ul {
+				list-style: none;
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="from">
+			<input type="text" placeholder="请填写姓名" v-model="sendData.name" @input="haha"/>
+			<p v-show="verify.name">{{hintName}}</p>
+			
+
+			<input type="text" readonly="readonly" placeholder="请选择城市" @click="clickStore" v-model="sendData.city">
+			<div class="store-list" v-show="storeList">
+				<div>请选择城市</div>
+				<ul>
+					<li v-for="(item,index) in store" :key="index" @click="obtainItem(item)">{{item}}</li>
+				</ul>
+			</div>
+			<p v-show="verify.city">请选择城市</p>
+
+
+			<input type="text" placeholder="手机号" v-model="sendData.phone" />
+			<p v-show="verify.phone">请填写手机号</p>
+
+
+
+			<input type="text" placeholder="邮箱" v-model="sendData.email" />
+			<p v-show="verify.email">请填写邮箱</p>
+
+
+
+			<input type="password" placeholder="密码" v-model="sendData.password" />
+			<p v-show="verify.password">请填写密码</p>
+
+
+			<input type="password" placeholder="确认密码" />
+
+
+			<input type="button" value="提交" @click="submintButton">
+
+
+
+
+		</div>
+
+
+		<script src="./js/index.js"></script>
+		<script src="./js/vue.js"></script>
+		<script type="text/javascript">
+			Vue.config.productionTip = false;
+			new Vue({
+				el: "#from",
+				data() {
+					return {
+						sendData: {
+							name: '',
+							city: '',
+							phone: '',
+							email: '',
+							password: '',
+						},
+						store: [],
+						storeList: false,
+						verify:{
+							name:false,
+							city: false,
+							phone: false,
+							email: false,
+							password: false,
+						},
+						hintName:''
+						
+						
+						
+					}
+				},
+				mounted() {
+					this.store = store
+				},
+				
+				methods: {
+					haha(){
+						this.verifyName()
+					},
+					verifyName(){
+						let reg = /^[\u4E00-\u9FA5A-Za-z]+$/;
+						if(this.sendData.name == ''){
+							this.verify.name = true;
+							this.hintName = "不能为空"
+						}else if(!reg.test(this.sendData.name)){
+							this.verify.name = true;
+							this.hintName = "姓名要全中文"
+						}else{
+							this.verify.name = false;
+						}
+						
+					},
+					
+					
+					
+					clickStore() {
+						this.storeList = !this.storeList;
+					},
+					obtainItem(item) {
+						this.sendData.city = item;
+						this.storeList = !this.storeList;
+					},
+					submintButton() {
+						this.verifyName()
+							// alert(this.sendData.name)
+							for(let item in this.verify){
+								console.log(this.verify[item])
+							}
+
+					}
+				}
+
+			})
+		</script>
+
+
+
+
+	</body>
+</html>
