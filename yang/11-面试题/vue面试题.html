@@ -56,9 +56,9 @@
 
 		js部分：判断是否绑定一个active
 		data() {
-		return {
-		isActive: true
-		};
+			return {
+				isActive: true
+			};
 		}
 
 		结果渲染为：
@@ -74,11 +74,11 @@
 
 
 		3. 计算属性和 watch 的区别
-		1、功能：computed是计算属性；watch是监听一个值的变化执行对应的回调
-		2、是否调用缓存：computed函数所依赖的属性不变的时候会调用缓存；watch每次监听的值发生变化时候都会调用回调
-		3、是否调用return：computed必须有；watch可以没有
-		4、使用场景：computed当一个属性受多个属性影响的时候；例如购物车商品结算；watch当一条数据影响多条数据的时候，例如搜索框
-		5、是否支持异步：computed函数不能有异步；watch可以
+			1、功能：computed是计算属性；watch是监听一个值的变化执行对应的回调
+			2、是否调用缓存：computed函数所依赖的属性不变的时候会调用缓存；watch每次监听的值发生变化时候都会调用回调
+			3、是否调用return：computed必须有；watch可以没有
+			4、使用场景：computed当一个属性受多个属性影响的时候；例如购物车商品结算；watch当一条数据影响多条数据的时候，例如搜索框
+			5、是否支持异步：computed函数不能有异步；watch可以
 
 		computed计算属性
 		在调用时候不加（）
@@ -86,22 +86,22 @@
 
 		完整写法
 		computed:{
-		allname:{
-		get(){
-		return this.firstname + " - " + this.lastname;
-		},
-		set(e){
-		let arr = e.split("-")
-		this.firstname = arr[0]
-		this.lastname = arr[1]
-		}
-		}
+			allname:{
+				get(){
+					return this.firstname + " - " + this.lastname;
+				},
+				set(e){
+					let arr = e.split("-")
+					this.firstname = arr[0]
+					this.lastname = arr[1]
+				}
+			}
 		}
 		简写
 		computed:{
-		allname(){
-		return this.firstname + " - " + this.lastname;
-		}
+			allname(){
+				return this.firstname + " - " + this.lastname;
+			}
 		}
 
 		watch监听
@@ -114,19 +114,19 @@
 
 		完整写法
 		watch: {
-		info: {
-		immediate: true,
-		deep: true,
-		handler(val, oldval) {
-		console.log("之前是：" + oldval + ",现在是：" + val)
-		},
-		},
+			info: {
+				immediate: true,
+				deep: true,
+				handler(val, oldval) {
+					console.log("之前是：" + oldval + ",现在是：" + val)
+				},
+			},
 		}
 		简写
 		watch: {
-		ishot(newValue,oldValue){
-		console.log('ishot被',newValue,oldValue);
-		}
+			ishot(newValue,oldValue){
+				console.log('ishot被',newValue,oldValue);
+			}
 		}
 
 
