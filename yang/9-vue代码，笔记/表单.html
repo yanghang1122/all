@@ -114,15 +114,11 @@
 							password: false,
 						},
 						hintName:''
-						
-						
-						
 					}
 				},
 				mounted() {
 					this.store = store
 				},
-				
 				methods: {
 					haha(){
 						this.verifyName()
@@ -138,11 +134,7 @@
 						}else{
 							this.verify.name = false;
 						}
-						
 					},
-					
-					
-					
 					clickStore() {
 						this.storeList = !this.storeList;
 					},
@@ -156,7 +148,6 @@
 							for(let item in this.verify){
 								console.log(this.verify[item])
 							}
-
 					}
 				}
 
