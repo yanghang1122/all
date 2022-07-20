@@ -27,15 +27,32 @@
 		
 		
 		<script>
-			let a  = 1;
 			
-			setInterval(function(){
-				
-				
-				console.log(a++)
-				
-				
-			},500)
+			function testAwait(){
+			   return new Promise((resolve) => {
+			       setTimeout(function(){
+			          console.log("testAwait");
+			          resolve();
+			       }, 1000);
+			   });
+			}
+			async function helloAsync(){
+			   await testAwait();
+			   console.log("helloAsync");
+			 }
+			helloAsync();
+			// testAwait
+			// helloAsync
+			
+			
+			
+			
+			
+			
+		
+		
+			
+			
 		</script>
 		
 		
