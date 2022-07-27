@@ -90,13 +90,16 @@
 
 
 		<script src="./js/index.js"></script>
-		<script src="./js/vue.js"></script>
+		<script src="../js/vue.js"></script>
 		<script type="text/javascript">
 			Vue.config.productionTip = false;
 			new Vue({
 				el: "#from",
 				data() {
 					return {
+						store:[
+							"123","34","35"
+						],	
 						sendData: {
 							name: '',
 							city: '',
